@@ -31,6 +31,7 @@ Route::get('hello/:name', 'Index/hello');
 //======================后台======================
 Route::group('xiaohua', function () {
     Route::get('index', 'admin.index/index');
+    Route::get('mian', 'admin.index/main')->name('main');
 });
 
 
