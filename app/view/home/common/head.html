@@ -11,12 +11,8 @@
     <!-- META TAGS -->
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>第一编程网</title>
-
     <link rel="shortcut icon" href="images/favicon.png"/>
-
-
     <!-- Style Sheet-->
     <link rel="stylesheet" href="style.css"/>
     <link rel='stylesheet' id='bootstrap-css-css' href='__INDEX__/css/bootstrap5152.css?ver=1.0' type='text/css'
@@ -25,11 +21,10 @@
           media='all'/>
     <link rel='stylesheet' id='pretty-photo-css-css' href='__INDEX__/js/prettyphoto/prettyPhotoaeb9.css?ver=3.1.4'
           type='text/css' media='all'/>
-    <link rel='stylesheet' id='main-css-css' href='__INDEX__/css/main5152.css?ver=1.0' type='text/css' media='all'/>
+    <link rel='stylesheet' id='main-css-css'  href='__INDEX__/css/main5152.css?ver=1.0' type='text/css' media='all' />
+    <link rel='stylesheet' id='green-skin-css'  href='__INDEX__/css/green-skin5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='custom-css-css' href='__INDEX__/css/custom5152.html?ver=1.0' type='text/css'
           media='all'/>
-
-
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="__INDEX__/js/html5.js"></script></script>
@@ -44,7 +39,6 @@
     <header>
         <div class="container">
 
-
             <div class="logo-container">
                 <!-- Website Logo -->
                 <a href="index-2.html" title="Knowledge Base Theme">
@@ -53,28 +47,25 @@
                 <span class="tag-line">可以一起掉头发吗？</span>
             </div>
 
-
             <!-- Start of Main Navigation -->
             <nav class="main-nav">
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix">
-                        <li class="current-menu-item"><a href="index.html">首页</a></li>
-                        <li><a href="{:url('course')}">课程</a></li>
-                        <li><a href="home-categories-articles.html">源码</a></li>
-                        <li><a href="articles-list.html">VIP</a></li>
-                        <li><a href="faq.html">签到</a></li>
-
-
+                        <li class="current-menu-item"><a href="{:url('/')}">首页</a></li>
+                        <li><a href="{:url('course/list')}">课程</a></li>
+                        <li><a href="{:url('course')}">源码</a></li>
+                        <li><a href="{:url('xiaohua/mian')}">VIP</a></li>
+                        <li><a href="{:url('sign')}">签到</a></li>
                         <!--下拉效果-->
-                        <li><a href="#">皮肤</a>
-                            <ul class="sub-menu">
-                                <li><a href="blue-skin.html">蓝色</a></li>
-                                <li><a href="green-skin.html">绿色</a></li>
-                                <li><a href="red-skin.html">红色</a></li>
-                                <li><a href="index-2.html">默认</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="faq.html">登录/注册</a></li>
+                        <!--<li><a href="#">皮肤</a>-->
+                            <!--<ul class="sub-menu">-->
+                                <!--<li><a href="blue-skin.html">蓝色</a></li>-->
+                                <!--<li><a href="green-skin.html">绿色</a></li>-->
+                                <!--<li><a href="red-skin.html">红色</a></li>-->
+                                <!--<li><a href="index-2.html">默认</a></li>-->
+                            <!--</ul>-->
+                        <!--</li>-->
+                        <li><a href="{:url('login')}">登录/注册</a></li>
                     </ul>
                 </div>
             </nav>

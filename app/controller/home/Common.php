@@ -14,7 +14,7 @@ use app\model\User as UserModel;
 use think\facade\Request;
 use think\facade\View;
 
-class Index extends BaseController
+class Common extends BaseController
 {
 
     //首页
@@ -27,7 +27,7 @@ class Index extends BaseController
     //课程
     public function course()
     {
-        return View::fetch();
+        return View::fetch('home/index/course');
     }
 
 

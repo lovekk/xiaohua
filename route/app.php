@@ -10,9 +10,45 @@
 // +----------------------------------------------------------------------
 use think\facade\Route;
 
+
+//======================前端======================
+//首页
+Route::get('/', 'home.index/index');
+//课程页
+Route::group('course', function () {
+    Route::get('list', 'home.Index/course');
+});
+////课程页
+Route::get('course', 'home.Common/course');
+//源码页
+Route::get('course', 'home.common/course');
+//会员页
+Route::get('vip', 'home.index/vip');
+//签到页
+Route::get('sign', 'home.index/sign');
+//登录页
+Route::get('login', 'home.index/login');
+Route::get('register', 'home.index/register');
+
+
+
+//======================后台======================
+Route::group('xiaohua', function () {
+    //首页
+    Route::get('index', 'admin.index/index');
+    Route::get('mian', 'admin.index/main')->name('main');
+
+    //管理员 列表
+    Route::get('admin_list', 'admin.admin/index')->name('admin_list');
+});
+
+
+
+
+
+
 //id user_id设置为数值类
 Route::pattern(['id'=>'\d+','user_id'=>'\d+']);
-
 
 //系统测试
 //闭包
@@ -21,24 +57,6 @@ Route::get('think', function () {
 });
 //控制器
 Route::get('hello/:name', 'Index/hello');
-
-
-//======================前端======================
-
-
-
-
-//======================后台======================
-Route::group('xiaohua', function () {
-    Route::get('index', 'admin.index/index');
-    Route::get('mian', 'admin.index/main')->name('main');
-});
-
-
-
-
-
-
 
 
 
