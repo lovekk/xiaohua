@@ -45,21 +45,29 @@ class Index extends BaseController
     }
 
 
-    //sign
+    //签到
     public function sign()
     {
         return View::fetch();
     }
 
 
-    //sign
+    //登录
     public function login()
     {
         return View::fetch();
     }
 
-    //sign
+
+    //注册
     public function register()
+    {
+        return View::fetch();
+    }
+
+
+    //个人主页
+    public function my()
     {
         return View::fetch();
     }

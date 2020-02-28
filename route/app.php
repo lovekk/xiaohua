@@ -18,17 +18,22 @@ Route::get('/', 'home.index/index');
 Route::group('course', function () {
     Route::get('list', 'home.Index/course');
 });
-////课程页
-Route::get('course', 'home.Common/course');
+//课程页
+Route::get('course', 'home.index/course')->name('course');
 //源码页
-Route::get('course', 'home.common/course');
+Route::get('code', 'home.index/code')->name('code');
 //会员页
-Route::get('vip', 'home.index/vip');
+Route::get('vip', 'home.index/vip')->name('vip');
 //签到页
-Route::get('sign', 'home.index/sign');
+Route::get('sign', 'home.index/sign')->name('sign');
 //登录页
-Route::get('login', 'home.index/login');
-Route::get('register', 'home.index/register');
+Route::get('login', 'home.index/login')->name('login');
+Route::get('register', 'home.index/register')->name('register');
+//个人主页
+Route::get('my', 'home.index/my')->name('my');
+
+
+
 
 
 
