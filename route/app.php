@@ -27,12 +27,10 @@ Route::get('vip', 'home.index/vip')->name('vip');
 //签到页
 Route::get('sign', 'home.index/sign')->name('sign');
 //登录页
-Route::get('login', 'home.index/login')->name('login');
-Route::get('register', 'home.index/register')->name('register');
+Route::get('login', 'home.login/login')->name('login');
+Route::get('register', 'home.login/register')->name('register');
 //个人主页
 Route::get('my', 'home.index/my')->name('my');
-
-
 
 
 
@@ -46,8 +44,6 @@ Route::group('xiaohua', function () {
     //管理员 列表
     Route::get('admin_list', 'admin.admin/index')->name('admin_list');
 });
-
-
 
 
 

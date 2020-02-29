@@ -30,5 +30,6 @@ return [
         '__INDEX__' =>  '/static/index',       //前端
         '__ADMIN__'   =>  '/static/admin',  //后台
         '__H__'   =>  '/static/h',  //h+4.2资源
+        '__SIGN__'   =>  '/static/sign',  //签到
     ],
 ];
