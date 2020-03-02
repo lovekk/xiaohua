@@ -41,8 +41,11 @@ Route::group('xiaohua', function () {
     Route::get('index', 'admin.index/index');
     Route::get('mian', 'admin.index/main')->name('main');
 
-    //管理员 列表
+    //管理员列表
     Route::get('admin_list', 'admin.admin/index')->name('admin_list');
+    //课程列表
+    Route::get('course_list', 'admin.course/course')->name('course_list');
+    Route::get('classification', 'admin.course/classification')->name('classification');
 });
 
 
