@@ -6,7 +6,7 @@
  * Time: 17:29
  */
 
-namespace app\controller;
+namespace app\xiaohua\controller;
 
 
 use app\BaseController;

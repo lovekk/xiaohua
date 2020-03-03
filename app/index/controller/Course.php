@@ -6,7 +6,7 @@
  * Time: 14:45
  */
 
-namespace app\controller\home;
+namespace app\index\controller;
 
 use app\BaseController;
 use think\facade\Db;

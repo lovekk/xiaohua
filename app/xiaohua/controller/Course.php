@@ -1,13 +1,14 @@
 <?php
-namespace app\controller\admin;
+namespace app\xiaohua\controller;
 
 use app\BaseController;
-use think\Db;
+
 use think\facade\Request;
 use think\facade\View;
+use think\facade\Db;
 
-use app\model\Course as CourseModel;
-use app\model\Classification as ClassificationModel;
+use app\xiaohua\model\Course as CourseModel;
+use app\xiaohua\model\Classification as ClassificationModel;
 
 class Course extends BaseController
 {
@@ -24,14 +25,20 @@ class Course extends BaseController
     // 课程分类
     public function classification()
     {
-        $class = Db()::paginate(1);
+        // 查询状态为1的用户数据 并且每页显示10条数据
+        $list = Db::name('classification')->order('id', 'desc')->paginate(2);
+
+        // 获取分页显示
+        $page = $list->render();
+
+        return view('', ['list' => $list, 'page' => $page]);
         // 模板变量赋值
-        View::assign('class',$class);
-        View::assign([
-            'name'  => 'ThinkPHP',
-            'email' => 'thinkphp@qq.com'
-        ]);
-        return View::fetch();
+//        View::assign('class',$class);
+//        View::assign([
+//            'name'  => 'ThinkPHP',
+//            'email' => 'thinkphp@qq.com'
+//        ]);
+//        return View::fetch();
     }
 
 

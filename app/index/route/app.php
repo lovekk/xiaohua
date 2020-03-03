@@ -10,13 +10,24 @@
 // +----------------------------------------------------------------------
 use think\facade\Route;
 
-//系统测试
-//闭包
-Route::get('think', function () {
-    return 'hello,ThinkPHP6!';
-});
-//控制器
-Route::get('hello/:name', 'Index/hello');
+
+//======================前端 路由======================
+//首页
+Route::get('/', 'Index/index');
+//课程页
+Route::get('course', 'Index/course')->name('course');
+//源码页
+Route::get('code', 'Index/code')->name('code');
+//会员页
+Route::get('vip', 'Index/vip')->name('vip');
+//签到页
+Route::get('sign', 'Index/sign')->name('sign');
+//登录页
+Route::get('login', 'Login/login')->name('login');
+Route::get('register', 'Login/register')->name('register');
+//个人主页
+Route::get('my', 'Index/my')->name('my');
+
 
 
 

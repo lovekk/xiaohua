@@ -1,5 +1,5 @@
 <?php
-namespace app\controller\admin;
+namespace app\xiaohua\controller;
 
 use app\BaseController;
 use think\facade\Request;

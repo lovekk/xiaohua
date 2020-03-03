@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程分类添加</title>
+    <meta name="keywords" content="课程分类添加">
+    <meta name="description" content="课程分类添加">
+    <link rel="shortcut icon" href="__ADMIN__/favicon.ico">
+    <link href="__ADMIN__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Data Tables -->
+    <link href="__ADMIN__/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加新分类</h5>
+                </div>
+                <div class="ibox-content">
+                    <form id="form1" method="post" action="{{ url('/admin/user/add') }}" class="form-horizontal">
+                        {{csrf_field()}}
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="username">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">手机号：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="phone">
+                                {{--<span class="help-block m-b-none">错误提示吧</span>--}}
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">密码：</label>
+                            <div class="col-sm-5">
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">性别：</label>
+                            <div class="col-sm-10">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" checked="" value="2" name="sex">男</label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="1" name="sex">女</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        {{--<div class="form-group">--}}
+                        {{--<label class="col-sm-2 control-label">头像</label>--}}
+                        {{--<div class="col-sm-5">--}}
+                            {{--<input type="file" name="head_url" class="form-control">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">实名：</label>
+                            <div class="col-sm-10">
+                                {{--//身份认证 1：未 2：已 3:认证中--}}
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" checked="" value="1" name="certification">未认证</label>
+                                </div>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" value="2" name="certification">已认证</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                                <a class="btn btn-white" onclick="go_back()">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="__ADMIN__/js/content.js?v=1.0.0'"></script>
+<script src="__ADMIN__/js/plugins/sweetalert/sweetalert.min.js'"></script>
+<!--<script src="{{ URL::asset('layer/layer.js') }}"></script>-->
+<!--<script src="{{ URL::asset('js/jquery.form.js') }}"></script>-->
+<script>
+    function go_back() {
+        javascript:history.go(-1);
+    }
+
+    $(function(){
+        /** 验证是否成功  */
+        $("#form1").ajaxForm(function(data){
+            if(data.code == 200){
+                swal("成功！", "您已经成功新建一个用户。", "success");
+                setTimeout(function(){
+                    javascript:window.location.replace(document.referrer);
+                },1000);
+            }else{
+                swal({
+                    title: "新增用户失败",
+                    text: " ",
+                    type: "error"
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
