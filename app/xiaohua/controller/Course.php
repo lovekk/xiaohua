@@ -15,7 +15,10 @@ class Course extends BaseController
 {
 
 
-    // 课程列表
+    //====================================课程====================================
+    /**
+     * 课程列表
+     */
     public function course()
     {
         //  渲染模板最常用的是控制器类在继承系统控制器基类（ \think\Controller ）后调用 fetch 方法
@@ -24,13 +27,14 @@ class Course extends BaseController
     }
 
 
+    //====================================课程分类====================================
     /**
      * 课程分类列表
      */
     public function classification()
     {
         // 查询状态为1的用户数据 并且每页显示10条数据
-        $list = Db::name('classification')->order('id', 'desc')->paginate(2);
+        $list = Db::name('classification')->order('id', 'desc')->paginate(5);
         // 获取分页显示
         $page = $list->render();
 
@@ -39,7 +43,9 @@ class Course extends BaseController
     }
 
 
-    //添加视图
+    /**
+     * 添加分类视图
+     */
     public function classificationAdd()
     {
         return View::fetch();
@@ -55,20 +61,32 @@ class Course extends BaseController
         $code = 200;
         $name = Request::param('name');
         $description = Request::param('description');
+        $type = Request::param('type');
         $course_num = Request::param('course_num');
         $download_num = Request::param('download_num');
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('img');
-        // 上传到本地服务器
-        $save_name = Filesystem::disk('public')->putFile( 'img', $file);
+        if ($file){
+            // 上传到本地服务器
+            $save_name = Filesystem::disk('public')->putFile( 'img', $file);
+            $created = [
+                'name' => $name,
+                'description' => $description,
+                'type' => $type,
+                'img' => $save_name,
+                'course_num' => $course_num,
+                'download_num' => $download_num,
+            ];
+        }else{
+            $created = [
+                'name' => $name,
+                'description' => $description,
+                'type' => $type,
+                'course_num' => $course_num,
+                'download_num' => $download_num,
+            ];
+        }
 
-        $created = [
-            'name' => $name,
-            'description' => $description,
-            'img' => $save_name,
-            'course_num' => $course_num,
-            'download_num' => $download_num,
-        ];
 
         $data = ClassificationModel::create($created);
         $code = $data ? 200:404;
@@ -78,14 +96,111 @@ class Course extends BaseController
     }
 
 
-    // 课程评价
+    /**
+     * 添加分类视图
+     */
+    public function classificationUpdate()
+    {
+        //获取ID
+        $id = Request::param('id');
+        //查找数据
+        $data = ClassificationModel::find(intval($id));
+        View::assign('data',$data);
+        View::assign('id',$id);
+        return View::fetch();
+    }
+
+
+    /**
+     * 修改课程分类方法
+     */
+    public function updateClassification()
+    {
+
+        $code = 200;
+        $id = Request::param('id');
+        $name = Request::param('name');
+        $description = Request::param('description');
+        $type = Request::param('type');
+        $course_num = Request::param('course_num');
+        $download_num = Request::param('download_num');
+        // 获取表单上传文件 例如上传了001.jpg
+        $file = request()->file('img');
+
+//        $data = Db::name('classification')
+//            ->where('id', intval($id))
+//            ->data([
+//                'name' => $name,
+//                'description' => $description,
+//                'course_num' => $course_num,
+//                'download_num' => $download_num,
+//                ])
+//            ->update();
+
+        //自动时间需要用模型来做
+        //默认的创建时间字段为create_time，
+        //更新时间字段为update_time，
+        //支持的字段类型包括timestamp/datetime/int。
+        $data = ClassificationModel::find(intval($id));
+        $data->name = $name;
+        $data->description = $description;
+        $data->type = $type;
+        $data->course_num = $course_num;
+        $data->download_num = $download_num;
+        if ($file){
+            // 上传到本地服务器
+            $save_name = Filesystem::disk('public')->putFile( 'img', $file);
+            $data->img = $save_name;
+        }
+        $data->save();
+
+
+        $code = $data ? 200:404;
+        $msg = ['code' => $code, 'msg' => '修改成功！'];
+
+        return json($msg);
+    }
+
+
+    /**
+     * 删除分类
+     */
+    public function delClassification()
+    {
+        //获取ID
+        $id = Request::param('id');
+        //软删除
+        //真删吧，paginate只能用Db，软删除要用Model，冲突
+        $data = ClassificationModel::destroy($id,true);
+        // 软删除数据 使用delete_time字段标记删除
+        /*
+        $data = Db::name('classification')
+            ->where('id', $id)
+            ->useSoftDelete('delete_time',time())
+            ->delete();
+        */
+        $code = $data ? 200:404;
+        $msg = ['code' => $code, 'msg' => '删除成功！'];
+
+        return json($msg);
+    }
+
+
+    //====================================课程评价====================================
+    /**
+     * 课程评价
+     */
     public function comment()
     {
         return View::fetch();
     }
 
 
-    // 课程用户提交
+
+    //====================================课程提交====================================
+    /**
+     * 课程用户提交
+     */
     public function submit()
     {
         return View::fetch();

@@ -9,7 +9,7 @@
 
 namespace app\xiaohua\model;
 use think\Model;
-
+use think\model\concern\SoftDelete;
 class Classification extends Model
 {
 
@@ -27,6 +27,8 @@ class Classification extends Model
     }
     */
 
+    use SoftDelete;
+    protected $deleteTime = 'delete_time';
 
 
 }

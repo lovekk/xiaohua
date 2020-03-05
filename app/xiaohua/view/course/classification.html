@@ -13,6 +13,8 @@
     <link href="__ADMIN__/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
     <link href="__ADMIN__/css/animate.css" rel="stylesheet">
     <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    <!--弹窗-->
+    <link href="__ADMIN__/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 
 <body class="gray-bg">
@@ -38,8 +40,10 @@
                                     <th>图片</th>
                                     <th>课程总数</th>
                                     <th>下载总数</th>
+                                    <th>归类</th>
                                     <th>最新上传时间</th>
                                     <th>创建时间</th>
+                                    <th>更改时间</th>
                                     <th>操作</th>
                                 </tr>
                             </thead>
@@ -52,12 +56,25 @@
                                     <td><img src="__STORAGE__/{$item.img}" width="50px"></td>
                                     <td class="center">{$item.course_num}</td>
                                     <td class="center">{$item.download_num}</td>
+                                    <td class="center">
+                                        <!--1开发2热门3设计-->
+                                        {if ($item.type == 1)}
+                                        <span class="label label-primary">编程</span>
+                                        {elseif ($item.type == 2)}
+                                        <span class="label label-warning">高薪</span>
+                                        {elseif ($item.type == 3)}
+                                        <span class="label label-success">设计</span>
+                                        {else}
+                                        <span class="label">其他</span>
+                                        {/if}
+                                    </td>
                                     <td class="center">{$item.last_time}</td>
                                     <td class="center">{$item.create_time}</td>
+                                    <td class="center">{$item.update_time}</td>
                                     <td class="center">
-                                        <a class="btn btn-primary btn-sm" href="{ url('admin/help/help_detail', ['id' => $s->id]) }">查看详情</a>
+                                        <a class="btn btn-success btn-sm" href="{:url('classification_update', ['id'=>$item.id]) }">修改</a>
                                         <button class="btn btn-default btn-sm"
-                                                onclick="del( { $s->id } );">删除</button>
+                                                onclick="del({$item.id});">删除</button>
 
                                     </td>
                                 </tr>
@@ -72,17 +89,52 @@
 
     </div>
 
-    <!-- 全局js -->
     <script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
-    <script src="__ADMIN__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__ADMIN__/js/content.js?v=1.0.0'"></script>
+    <script src="__H__/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="__LAYER__/layer.js"></script>
+    <script src="__JS__/jquery.form.js"></script>
 
-    <!-- 自定义js -->
-    <script src="__ADMIN__/js/content.js?v=1.0.0"></script>
 
-
-
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
-    <!--统计代码，可删除-->
+    <script>
+        //删除数据
+        function del($id) {
+            //alert($id + $url);
+            swal({
+                title: "您确定要删除这条编号为"+ $id +"数据吗",
+                text: "删除后将无法恢复，请谨慎操作！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "删除",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    async : false,    //表示请求是否异步处理
+                    type : "post",    //请求类型
+                    url : 'del_classification',//请求的 URL地址
+                    dataType : "json",//返回的数据类型
+                    data : {
+                        'id' : $id
+                    },
+                    success: function (data) {
+                        //console.log(data.code);  //在控制台打印服务器端返回的数据
+                        if(data.code === 200){
+                            swal("删除成功！", "您已经删除了这条信息。", "success");
+                            setTimeout(function(){
+                                window.location.reload();
+                            },1000);
+                        }else{
+                            swal("未能删除！", "数据不存在。", "success");
+                        }
+                    },
+                    error:function (data) {
+                        //console.log(222 + data.result);
+                    }
+                });
+            });
+        }
+    </script>
 
 </body>
 

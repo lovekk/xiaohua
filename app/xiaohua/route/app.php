@@ -31,6 +31,9 @@ Route::get('del_course', 'Course/delCourse')->name('del_course');  //删除方�
 Route::get('classification', 'Course/classification')->name('classification');  //列表
 Route::get('classification_add', 'Course/classificationAdd')->name('classification_add');  //新增视图
 Route::post('add_classification', 'Course/addClassification')->name('add_classification');  //新增方法
+Route::get('classification_update/:id', 'Course/classificationUpdate')->name('classification_update');  //修改视图
+Route::post('update_classification', 'Course/updateClassification')->name('update_classification');  //修改方法
+Route::post('del_classification', 'Course/delClassification')->name('del_classification');  //删除方法
 //课程评论
 Route::get('comment_list', 'Course/comment')->name('comment_list');  //列表
 Route::get('comment_add', 'Course/commentAdd')->name('comment_add');  //新增视图
