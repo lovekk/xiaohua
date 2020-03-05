@@ -5,10 +5,13 @@ return [
     'default' => env('filesystem.driver', 'local'),
     // 磁盘列表
     'disks'   => [
+        //这个是缓存文件
         'local'  => [
             'type' => 'local',
             'root' => app()->getRuntimePath() . 'storage',
         ],
+        //这里是本地文件可查看
+        //使用$savename = \think\facade\Filesystem::disk('public')->putFile( 'topic', $file);
         'public' => [
             // 磁盘类型
             'type'       => 'local',

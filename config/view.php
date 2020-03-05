@@ -25,11 +25,14 @@ return [
 
     // 视图输出字符串内容替换
     'tpl_replace_string'       => [
-        '__PUBLIC__' =>  '',              //public 目录
-        '__STATIC__' =>  '/static',       //全局静态目录
-        '__INDEX__' =>  '/static/index',       //前端
-        '__ADMIN__'   =>  '/static/admin',  //后台
-        '__H__'   =>  '/static/h',  //h+4.2资源
-        '__SIGN__'   =>  '/static/sign',  //签到
+        '__PUBLIC__'  =>  '',                  //public 目录
+        '__STATIC__'  =>  '/static',           //全局静态目录
+        '__STORAGE__'  =>  '/storage',         //本地文件上传
+        '__INDEX__'   =>  '/static/index',     //前端
+        '__ADMIN__'   =>  '/static/admin',     //后台
+        '__H__'       =>  '/static/h',         //h+4.2资源
+        '__SIGN__'    =>  '/static/sign',      //签到
+        '__JS__'      =>  '/static/js',        //js文件 vue jquery.form
+        '__LAYER__'   =>  '/static/layer',     //layer组件
     ],
 ];
