@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程添加</title>
+    <meta name="keywords" content="课程添加">
+    <meta name="description" content="课程添加">
+    <link rel="shortcut icon" href="__ADMIN__/favicon.ico">
+    <link href="__ADMIN__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Data Tables -->
+    <link href="__ADMIN__/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    <!--弹窗-->
+    <link href="__ADMIN__/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+</head>
+<body class="gray-bg">
+{$data}
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>添加课程</h5>
+                </div>
+                <div class="ibox-content">
+                    <form id="form1" method="post" action="{:url('add_course')}"
+                          enctype="multipart/form-data" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">上传用户：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="name">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">标题：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="title">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">图标：</label>
+                            <div class="col-sm-5">
+                                <input type="file" class="form-control" name="img">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">百度云：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="baiduyun">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">解压密码：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" name="rar_password">
+                                <span class="help-block m-b-none">*默认: www.diyibiancheng.com</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">浏览数：</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control" name="view_num">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">下载数：</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control" name="down_num">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">评论数：</label>
+                            <div class="col-sm-5">
+                                <input type="number" class="form-control" name="comment_num">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">类型：</label>
+                            <!--类型 1视频 2电子书 3源码 4软件 5图文-->
+                            <div class="col-sm-10">
+                                <div class="radio">
+                                    <label><input type="radio" checked="" value="1" name="type">视频</label>
+                                    <label><input type="radio" value="2" name="type">源码</label>
+                                    <label><input type="radio" value="3" name="type">电子书</label>
+                                    <label><input type="radio" value="4" name="type">软件</label>
+                                    <label><input type="radio" value="5" name="type">图文</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">归类：</label>
+                            <div class="col-sm-10">
+                                <div class="radio">
+                                    {volist name='data' id='item'}
+                                    <label><input type="radio" value="{$item.id}" name="classification_id">{$item.name}</label>
+                                    {/volist}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">详情：</label>
+                            <div class="col-sm-8">
+                                <div id="editor"></div>
+                            </div>
+                            <input id="content" name="content" type="hidden">
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                                <a class="btn btn-white" onclick="go_back()">取消</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+<script src="__ADMIN__/js/content.js?v=1.0.0'"></script>
+<script src="__H__/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="__LAYER__/layer.js"></script>
+<script src="__JS__/jquery.form.js"></script>
+<script>
+    function go_back() {
+        javascript:history.go(-1);
+    }
+
+    $(function(){
+        /** 验证是否成功  */
+        $("#form1").ajaxForm(function(data){
+            if(data.code == 200){
+                swal("成功！", "您已经成功新建一个课程。", "success");
+                setTimeout(function(){
+                    javascript:window.location.replace(document.referrer);
+                },1000);
+            }else{
+                swal({
+                    title: "新增课程失败",
+                    text: " ",
+                    type: "error"
+                });
+            }
+        });
+    });
+</script>
+
+<!-- 注意， 只需要引用 JS，无需引用任何 CSS ！！！-->
+<script type="text/javascript" src="__EDITOR__/wangEditor.js"></script>
+<script type="text/javascript">
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    //或者 var editor = new E( document.getElementById('editor') )
+
+    //下面两个配置，使用其中一个即可显示“上传图片”的tab。但是两者不要同时使用！！！
+    editor.customConfig.uploadImgShowBase64 = true;   // 使用 base64 保存图片
+    //editor.customConfig.uploadImgServer = '/upload'; // 上传图片到服务器
+    // 隐藏“网络图片”tab
+    //editor.customConfig.showLinkImg = false;
+
+    var $content = $('#content');
+    editor.customConfig.onchange = function (html) {
+        // html 即变化之后的内容
+        console.log(html);
+        // 监控变化，同步更新到 textarea
+        $content.val(html);
+    };
+    editor.create();
+</script>
+
+</body>
+</html>

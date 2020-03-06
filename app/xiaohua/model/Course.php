@@ -30,6 +30,10 @@ class Course extends Model
 
     use SoftDelete;
     protected $deleteTime = 'delete_time';
-
+    //关联分类外键
+    public function classification()
+    {
+        return $this->belongsTo(Classification::class,'classification_id','id');
+    }
 
 }

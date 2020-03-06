@@ -34,5 +34,6 @@ return [
         '__SIGN__'    =>  '/static/sign',      //签到
         '__JS__'      =>  '/static/js',        //js文件 vue jquery.form
         '__LAYER__'   =>  '/static/layer',     //layer组件
+        '__EDITOR__'   =>  '/static/wangeditor3/release',     //wangeditor3
     ],
 ];
