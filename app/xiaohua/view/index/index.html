@@ -28,7 +28,7 @@
                             <span><img alt="image" class="img-circle" src="__ADMIN__/img/chai.png" /></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                               <span class="block m-t-xs"><strong class="font-bold">柴小花</strong></span>
+                               <span class="block m-t-xs"><strong class="font-bold">{$name}</strong></span>
                                 <span class="text-muted text-xs block">超级管理员</span>
                                 </span>
                             </a>
@@ -52,7 +52,7 @@
                                 <a class="J_menuItem" href="{:url('admin_list')}">管理员列表</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="{:url('admin_list')}">登录日志</a>
+                                <a class="J_menuItem" href="{:url('admin_log')}">登录日志</a>
                             </li>
                         </ul>
                     </li>
@@ -174,7 +174,7 @@
                         </li>
                     </ul>
                 </div>
-                <a href="../login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+                <a href="{:url('out_login')}" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="{:url('main')}" frameborder="0" data-id="index_v1.html" seamless></iframe>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>第一编程网-后台登录</title>
+    <meta name="keywords" content="第一编程网-后台-登录">
+    <meta name="description" content="第一编程网-后台登录">
+    <link href="__ADMIN__/css/bootstrap.min.css" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css" rel="stylesheet">
+    <link href="__ADMIN__/css/login.css" rel="stylesheet">
+
+</head>
+
+<body class="signin">
+    <div class="signinpanel">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="signin-info">
+                    <div class="logopanel m-b">
+                        <h1>第一编程网-后台登录</h1>
+                    </div>
+                    <div class="m-b"></div>
+                    <h4>欢迎来到 <strong>《第一编程网》后台</strong></h4>
+                    <ul class="m-b">
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 丰富的课程</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优质的源码</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 新鲜的视频</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 帅气英俊的管理员</li>
+                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 美丽可爱的柴同学</li>
+                    </ul>
+                    <!--<strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong>-->
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <form method="post" action="{:url('go_login')}" name="form1" id="form1">
+                    <h4 class="no-margins">登录：</h4>
+                    <p class="m-t-md">登录到第一编程网后台</p>
+                    <input type="text" class="form-control uname" name="username" placeholder="用户名" />
+                    <input type="password" class="form-control pword m-b" name="password" placeholder="密码" />
+                    <input type="text" class="form-control pword" name="captcha" placeholder="验证码" />
+                    <div style="margin-top: 15px;">{:captcha_img()}</div>
+                    <!--<a href="">忘记密码了？</a>-->
+                    <div style="color: #aa0000" id="fail" class="fail"></div>
+                    <button class="btn btn-success btn-block">登录</button>
+                </form>
+            </div>
+        </div>
+        <div class="signup-footer">
+            <div class="pull-left">
+                &copy; 2020 作者：小张&小柴
+            </div>
+        </div>
+    </div>
+    <script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+    <script src="__JS__/jquery.form.js"></script>
+    <script>
+
+        $(function(){
+            /** 验证是否成功  */
+            $("#form1").ajaxForm(function(data){
+                console.log(data);
+                if(data.code == 100 || data.code == 300 || data.code == 400){
+                    $("#fail").text(data.msg);
+                }else if(data.code == 200){
+                    $("#fail").text('');
+                    window.location.href="/xiaohua/index";
+//                    setTimeout(function(){
+//                        //window.location.reload();
+//                        window.location.href="/xiaohua/index";
+//                    },1000);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
