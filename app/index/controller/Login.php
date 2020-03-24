@@ -30,4 +30,11 @@ class Login extends BaseController
         return View::fetch();
     }
 
+    //忘记密码
+    public function forget()
+    {
+        return View::fetch();
+    }
+
+
 }

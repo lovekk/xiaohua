@@ -52,18 +52,18 @@
                                 <tr class="gradeA">
                                     <td>{$item.id}</td>
                                     <td>{$item.name}</td>
-                                    <td>{$item.description}</td>
+                                    <td style="width: 25%">{$item.description}</td>
                                     <td><img src="__STORAGE__/{$item.img}" width="50px"></td>
                                     <td class="center">{$item.course_num}</td>
                                     <td class="center">{$item.download_num}</td>
                                     <td class="center">
                                         <!--1开发2热门3设计-->
                                         {if ($item.type == 1)}
-                                        <span class="label label-primary">编程</span>
+                                        <span class="label label-primary">编程开发</span>
                                         {elseif ($item.type == 2)}
-                                        <span class="label label-warning">高薪</span>
+                                        <span class="label label-warning">数据/AI/运维</span>
                                         {elseif ($item.type == 3)}
-                                        <span class="label label-success">设计</span>
+                                        <span class="label label-success">设计/媒体</span>
                                         {else}
                                         <span class="label">其他</span>
                                         {/if}

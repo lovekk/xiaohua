@@ -118,7 +118,7 @@ class Course extends BaseController
     {
         // 查询状态为1的用户数据 并且每页显示10条数据
         //$list = Db::name('classification')->order('id', 'desc')->paginate(5);
-        $list = ClassificationModel::paginate(2);
+        $list = ClassificationModel::paginate(10);
         // 获取分页显示
         $page = $list->render();
 

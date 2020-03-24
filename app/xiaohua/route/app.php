@@ -27,6 +27,12 @@ Route::group(function(){
     Route::get('admin_add', 'Admin/adminAdd')->name('admin_add');  //管理员新增视图
     Route::post('add_admin', 'Admin/addAdmin')->name('add_admin');  //管理员新增方法
     Route::get('admin_log', 'Admin/adminLog')->name('admin_log');  //管理员登录日志
+    //用户
+    Route::get('user_list', 'User/index')->name('user_list');  //用户列表
+    Route::get('user_add', 'User/userAdd')->name('user_add');  //用户新增视图
+    Route::post('add_user', 'User/addUser')->name('add_user');  //用户新增方法
+    Route::get('user_detail', 'User/userDetail')->name('user_detail');  //用户详情
+    Route::get('user_log', 'User/userLog')->name('user_log');  //用户登录日志
     //课程
     Route::get('course_list', 'Course/course')->name('course_list');  //列表
     Route::get('course_add', 'Course/courseAdd')->name('course_add');  //新增视图
@@ -41,11 +47,17 @@ Route::group(function(){
     Route::post('update_classification', 'Course/updateClassification')->name('update_classification');  //修改方法
     Route::post('del_classification', 'Course/delClassification')->name('del_classification');  //删除方法
     //课程评论
-    Route::get('comment_list', 'Course/comment')->name('comment_list');  //列表
-    Route::get('comment_add', 'Course/commentAdd')->name('comment_add');  //新增视图
-    Route::get('add_comment', 'Course/addComment')->name('add_comment');  //新增方法
-    Route::get('del_comment', 'Course/delComment')->name('del_comment');  //删除方法
+    Route::get('comment_list', 'Course/comment')->name('comment_list');  //评论列表
+    Route::get('del_comment', 'Course/delComment')->name('del_comment');  //评论删除方法
+
 })->middleware(\app\xiaohua\middleware\AdminLogin::class);
+
+
+
+
+
+
+
 
 
 

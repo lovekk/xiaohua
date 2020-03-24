@@ -1,24 +1,15 @@
 <section class="widget">
-    <h3 class="title">Tags</h3>
+    <h3 class="title">类别</h3>
     <div class="tagcloud">
-        <a href="#" class="btn btn-primary">Java</a>
-        <a href="#" class="btn btn-primary">C/C++</a>
-        <a href="#" class="btn btn-primary">Python</a>
-        <a href="#" class="btn btn-primary">PHP</a>
-        <a href="#" class="btn btn-primary">前端</a>
-        <a href="#" class="btn btn-primary">date</a>
-        <a href="#" class="btn btn-primary">design</a>
-        <a href="#" class="btn btn-primary">files</a>
-        <a href="#" class="btn btn-primary">format</a>
-        <a href="#" class="btn btn-primary">header</a>
-        <a href="#" class="btn btn-primary">images</a>
-        <a href="#" class="btn btn-mini">plugins</a>
-        <a href="#" class="btn btn-mini">setting</a>
-        <a href="#" class="btn btn-mini">templates</a>
-        <a href="#" class="btn btn-mini">theme</a>
-        <a href="#" class="btn btn-mini">time</a>
-        <a href="#" class="btn btn-mini">videos</a>
-        <a href="#" class="btn btn-mini">website</a>
-        <a href="#" class="btn btn-mini">wordpress</a>
+        {volist name='hello' id='item'}
+        <a href="#" class="btn btn-primary">{$item.name}</a>
+        {/volist}
+        {volist name='ai' id='item'}
+        <a href="#" class="btn btn-danger">{$item.name}</a>
+        {/volist}
+        {volist name='media' id='item'}
+        <a href="#" class="btn btn-success">{$item.name}</a>
+        {/volist}
+
     </div>
 </section>

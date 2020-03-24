@@ -15,33 +15,33 @@
                 <!-- Basic Home Page Template -->
                 <div class="row separator">
                     <section class="span4 articles-list">
-                        <h3>热门课程</h3>
+                        <h3>热门资源</h3>
                         <ul class="articles">
-                            <li class="article-entry standard">
+                            <li class="article-entry shipin">
                                 <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术信息和技术信息和技术</a></h4>
                                 <span class="article-meta">2020-2-26
                                     <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
                                 <span class="like-count">66</span>
                             </li>
-                            <li class="article-entry standard">
+                            <li class="article-entry shipin">
                                 <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术</a></h4>
                                 <span class="article-meta">2020-2-26
                                     <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
                                 <span class="like-count">66</span>
                             </li>
-                            <li class="article-entry standard">
+                            <li class="article-entry yuanma">
                                 <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术</a></h4>
                                 <span class="article-meta">2020-2-26
                                     <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
                                 <span class="like-count">66</span>
                             </li>
-                            <li class="article-entry standard">
+                            <li class="article-entry lujing">
                                 <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术</a></h4>
                                 <span class="article-meta">2020-2-26
                                     <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
                                 <span class="like-count">66</span>
                             </li>
-                            <li class="article-entry standard">
+                            <li class="article-entry shu">
                                 <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术</a></h4>
                                 <span class="article-meta">2020-2-26
                                     <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
@@ -52,7 +52,7 @@
 
 
                     <section class="span4 articles-list">
-                        <h3>最新课程</h3>
+                        <h3>最新资源</h3>
                         <ul class="articles">
                             <li class="article-entry standard">
                                 <h4><a href="single.html">信息和技术信息和技术信息和技术信息和技术信息和技术</a></h4>
@@ -103,119 +103,67 @@
                     </div>
                     <div class="row-fluid top-cats">
 
-                        <section class="span4">
+                        {volist name='hello' id='item'}
+                        <section class="span4" style="margin: 0">
                             <h4 class="" >
-                                <img src="__ADMIN__/img/chai.png" style="border-radius: 20px">
-                                <a href="#" style="color: #375742"> 【 Java 】 </a>
+                                <img src="__STORAGE__/{$item.img}" style="width: 64px">
+                                <a href="#" style="color: #375742">【{$item.name}】</a>
                             </h4>
                             <div class="category-description">
-                                <p>资源:88 下载次数:29990</p>
+                                <p>资源:{$item.course_num} 下载次数:{$item.download_num}</p>
                             </div>
                         </section>
-
-                        <section class="span4">
-                            <h4 class="category"><a href="#">Designing in WordPress</a></h4>
-                            <div class="category-description">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                                    tincidunt ut laoreet</p>
-                            </div>
-                        </section>
-
-                        <section class="span4">
-                            <h4 class="category"><a href="#">Theme Development</a></h4>
-                            <div class="category-description">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                                    tincidunt ut laoreet dolore magna</p>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="row-fluid top-cats">
-
-                        <section class="span4">
-                            <h4 class="category"><a href="#">Website Dev</a></h4>
-                            <div class="category-description">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                                    tincidunt ut laoreet dolore magna aliquam</p>
-                            </div>
-                        </section>
-
-                        <section class="span4">
-                            <h4 class="category">
-                                <a href="#">WordPress Plugins</a></h4>
-                            <div class="category-description">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                                    tincidunt ut laoreet dolore</p>
-                            </div>
-                        </section>
-
-                        <section class="span4">
-                            <h4 class="category"><a href="#">Advanced Techniques</a></h4>
-                            <div class="category-description"><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                sed diam nonummy nibh euismod tincidunt ut</p>
-                            </div>
-                        </section>
+                        {/volist}
                     </div>
                 </div>
 
+
+                <br>
                 <div>
                     <div class="row home-category-list-area">
                         <div class="span8">
-                            <h2>设计与媒体</h2>
+                            <h2>数据/AI/运维</h2>
                         </div>
                     </div>
                     <div class="row-fluid top-cats">
-
-                        <section class="span4">
-                            <h4 class="category"><a href="#">WordPress for Beginners</a></h4>
+                        {volist name='ai' id='item'}
+                        <section class="span4" style="margin: 0">
+                            <h4 class="" >
+                                <img src="__STORAGE__/{$item.img}" style="width: 64px">
+                                <a href="#" style="color: #375742">【{$item.name}】</a>
+                            </h4>
                             <div class="category-description">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                                    tincidunt ut laoreet dolore magna aliquam erat</p>
+                                <p>资源:{$item.course_num} 下载次数:{$item.download_num}</p>
                             </div>
                         </section>
-
-                        <section class="span4">
-                            <h4 class="category"><a href="#">Designing in WordPress</a></h4>
-                            <div class="category-description">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                                    tincidunt ut laoreet</p>
-                            </div>
-                        </section>
-
-                        <section class="span4">
-                            <h4 class="category"><a href="#">Theme Development</a></h4>
-                            <div class="category-description">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                                    tincidunt ut laoreet dolore magna</p>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="row-fluid top-cats">
-
-                        <section class="span4">
-                            <h4 class="category"><a href="#">Website Dev</a></h4>
-                            <div class="category-description">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                                    tincidunt ut laoreet dolore magna aliquam</p>
-                            </div>
-                        </section>
-
-                        <section class="span4">
-                            <h4 class="category">
-                                <a href="#">WordPress Plugins</a></h4>
-                            <div class="category-description">
-                                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                                    tincidunt ut laoreet dolore</p>
-                            </div>
-                        </section>
-
-                        <section class="span4">
-                            <h4 class="category"><a href="#">Advanced Techniques</a></h4>
-                            <div class="category-description"><p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                                sed diam nonummy nibh euismod tincidunt ut</p>
-                            </div>
-                        </section>
+                        {/volist}
                     </div>
                 </div>
+
+
+                <br>
+                <div>
+                    <div class="row home-category-list-area">
+                        <div class="span8">
+                            <h2>设计/媒体</h2>
+                        </div>
+                    </div>
+                    <div class="row-fluid top-cats">
+                        {volist name='media' id='item'}
+                        <section class="span4" style="margin: 0">
+                            <h4 class="" >
+                                <img src="__STORAGE__/{$item.img}" style="width: 64px">
+                                <a href="#" style="color: #375742">【{$item.name}】</a>
+                            </h4>
+                            <div class="category-description">
+                                <p>资源:{$item.course_num} 下载次数:{$item.download_num}</p>
+                            </div>
+                        </section>
+                        {/volist}
+                    </div>
+
+                </div>
+                <br><br><br>
 
             </div>
             <!-- end of page content -->
