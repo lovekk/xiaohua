@@ -30,7 +30,7 @@ class Course extends BaseController
         //如果要对关联模型进行约束，可以使用闭包的方式。
         $list = CourseModel::with(['classification'=> function($query) {
             $query->field('id,name');
-        }])->paginate(2);
+        }])->order('id','desc')->paginate(20);
         // 获取分页显示
         $page = $list->render();
         return view('', ['list' => $list, 'page' => $page]);

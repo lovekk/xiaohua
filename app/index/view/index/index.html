@@ -3,7 +3,6 @@
 {include file="common/head" title="第一编程网"/}
 <!--搜索框-->
 {include file="common/search" /}
-
 <!-- Start of Page Container -->
 <div class="page-container">
     <div class="container">
@@ -17,36 +16,18 @@
                     <section class="span4 articles-list">
                         <h3>热门资源</h3>
                         <ul class="articles">
-                            <li class="article-entry shipin">
-                                <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术信息和技术信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26
-                                    <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
-                                <span class="like-count">66</span>
+                            {volist name='hot_course' id='item'}
+                            <!--类型 1视频 2源码 3电子书 4软件 5图文-->
+                            <li class="article-entry shipin{$item.type}">
+                                <h4><a href="{:url('course_detail', ['id'=>$item.id])}">{$item.title}</a></h4>
+                                <span class="article-meta">{$item.create_time|date='Y-m-d'}
+                                    <a href="{:url('course_list', ['id'=>$item.classification.id])}" style="color: #375742">【{$item.classification.name}】</a>
+                                </span>
+                                <span class="like-count">
+                                    <a href="{:url('course_detail', ['id'=>$item.id])}">{$item.down_num}</a>
+                                </span>
                             </li>
-                            <li class="article-entry shipin">
-                                <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26
-                                    <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
-                                <span class="like-count">66</span>
-                            </li>
-                            <li class="article-entry yuanma">
-                                <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26
-                                    <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
-                                <span class="like-count">66</span>
-                            </li>
-                            <li class="article-entry lujing">
-                                <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26
-                                    <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
-                                <span class="like-count">66</span>
-                            </li>
-                            <li class="article-entry shu">
-                                <h4><a href="single.html">WordPress CSS信息和技术WordPress CSS信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26
-                                    <a href="#" title="View all posts in Server &amp; Database">Java</a></span>
-                                <span class="like-count">66</span>
-                            </li>
+                            {/volist}
                         </ul>
                     </section>
 
@@ -54,42 +35,18 @@
                     <section class="span4 articles-list">
                         <h3>最新资源</h3>
                         <ul class="articles">
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">信息和技术信息和技术信息和技术信息和技术信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26 <a href="#"
-                                                                              title="View all posts in Server &amp; Database">前端</a></span>
-                                <span class="like-count">66</span>
+                            {volist name='new_course' id='item'}
+                            <!--类型 1视频 2源码 3电子书 4软件 5图文-->
+                            <li class="article-entry shipin{$item.type}">
+                                <h4><a href="{:url('course/detail', ['id'=>$item.id]) }">{$item.title}</a></h4>
+                                <span class="article-meta">{$item.create_time|date='Y-m-d'}
+                                    <a href="{:url('course/list', ['id'=>$item.id]) }" style="color: #375742">【{$item.classification.name}】</a>
+                                </span>
+                                <span class="like-count">
+                                    <a href="index.html">{$item.down_num}</a>
+                                </span>
                             </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">信息和技术信息和技术信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26 <a href="#"
-                                                                              title="View all posts in Advanced Techniques">前端</a></span>
-                                <span class="like-count">18</span>
-                            </li>
-                            <li class="article-entry image">
-                                <h4><a href="single.html">信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26 <a href="#"
-                                                                              title="View all posts in Designing in WordPress">前端</a></span>
-                                <span class="like-count">7</span>
-                            </li>
-                            <li class="article-entry video">
-                                <h4><a href="single.html">信息和技术信息和技术信息和技术信息和技术信息和技术信息和技术信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26 <a href="#"
-                                                                              title="View all posts in WordPress Plugins">前端</a></span>
-                                <span class="like-count">7</span>
-                            </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">信息和技术信息和技术信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26 <a href="#"
-                                                                              title="View all posts in Website Dev">前端</a></span>
-                                <span class="like-count">15</span>
-                            </li>
-                            <li class="article-entry standard">
-                                <h4><a href="single.html">信息和技术信息和技术信息和技术信息和技术信息和技术信息和技术</a></h4>
-                                <span class="article-meta">2020-2-26 <a href="#"
-                                                                              title="View all posts in Theme Development">前端</a></span>
-                                <span class="like-count">1</span>
-                            </li>
+                            {/volist}
                         </ul>
                     </section>
                 </div>

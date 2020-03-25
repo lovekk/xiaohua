@@ -1,23 +1,14 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006~2018 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
-use think\facade\Route;
 
+use think\facade\Route;
 
 //======================前端 路由======================
 //首页
 Route::get('/', 'Index/index');
 //课程页
 Route::get('course', 'Index/course')->name('course');
-Route::get('course_list', 'Index/courseList')->name('course_list');
-Route::get('course_detail', 'Index/courseDetail')->name('course_detail');
+Route::get('course_list/:id', 'Index/courseList')->name('course_list');
+Route::get('course_detail/:id', 'Index/courseDetail')->name('course_detail');
 //源码页
 Route::get('code', 'Index/code')->name('code');
 //会员页
@@ -30,8 +21,11 @@ Route::get('my', 'Index/my')->name('my');
 Route::get('about', 'Index/about')->name('about');
 //登录页
 Route::get('login', 'Login/login')->name('login');
+Route::get('index_login', 'Login/indexLogin')->name('index_login');
 Route::get('register', 'Login/register')->name('register');
+Route::get('index_register', 'Login/indexRegister')->name('index_register');
 Route::get('forget', 'Login/forget')->name('forget');
+Route::get('index_forget', 'Login/indexForget')->name('index_forget');
 
 
 
