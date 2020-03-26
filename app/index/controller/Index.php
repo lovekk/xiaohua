@@ -24,6 +24,10 @@ use app\index\model\Comment as CommentModel;
 class Index extends BaseController
 {
 
+    //跳转到index
+//    public function index(){
+//        return redirect('index');
+//    }
     //首页
     public function index()
     {

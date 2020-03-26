@@ -23,9 +23,9 @@
                                 <span class="article-meta">{$item.create_time|date='Y-m-d'}
                                     <a href="{:url('course_list', ['id'=>$item.classification.id])}" style="color: #375742">【{$item.classification.name}】</a>
                                 </span>
-                                <span class="like-count">
-                                    <a href="{:url('course_detail', ['id'=>$item.id])}">{$item.down_num}</a>
-                                </span>
+                                <a href="{:url('course_detail', ['id'=>$item.id])}">
+                                    <span class="like-count">{$item.down_num}</span>
+                                </a>
                             </li>
                             {/volist}
                         </ul>
@@ -132,7 +132,7 @@
                 {include file="common/support" /}
                 <!--快速链接-->
                 {include file="common/links" /}
-                <!--课程分类标签-->
+                <!--分类标签-->
                 {include file="common/tags" /}
             </aside>
             <!-- end of sidebar -->

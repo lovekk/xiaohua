@@ -14,7 +14,7 @@ class Index extends BaseController
         //渲染模板最常用的是控制器类在继承系统控制器基类（ \think\Controller ）后调用 fetch 方法
         // 不带任何参数 自动定位当前操作的模板文件
         $name = '柴小花';
-        if (session('?name')){
+        if (session('?admin_name')){
             $name = session('admin_name');
         }
         // 模板变量赋值

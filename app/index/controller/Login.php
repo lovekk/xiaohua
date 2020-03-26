@@ -11,8 +11,10 @@ namespace app\index\controller;
 use app\BaseController;
 use think\facade\Db;
 use app\index\model\User as UserModel;
+use app\index\model\UserLog as UserLogModel;
 use think\facade\Request;
 use think\facade\View;
+use think\facade\Session;
 
 class Login extends BaseController
 {
@@ -34,7 +36,8 @@ class Login extends BaseController
         $password = Request::param('password');
         $captcha = Request::param('captcha');
         $is_name = UserModel::where('username',$username)->limit(1)->value('password');
-        //$ip = $_SERVER['REMOTE_ADDR'];
+        $user_id = UserModel::where('username',$username)->limit(1)->value('id');
+        $ip = $_SERVER['REMOTE_ADDR'];
 
         //halt($is_name); //没有值返回null
         //halt(captcha_check($captcha)); //没有值返回null
@@ -43,27 +46,30 @@ class Login extends BaseController
             return json($msg);
         };
         if ($is_name == null){
-            $msg = ['code' => 100, 'msg' => '用户名不存在！'];
+            $msg = ['code' => 100, 'msg' => '用户名或密码错误！'];
             return json($msg);
         }
 
         //再匹配密码和验证码
         if ($is_name !== $password || empty($password)){
-            $msg = ['code' => 300, 'msg' => '密码错误！'];
+            $msg = ['code' => 300, 'msg' => '用户名或密码错误'];
             return json($msg);
         }
 
         if (!empty($password) && $is_name == $password){
             //登录成功 存入session
-            session('index_name', $username);
+            session('user_name', $username);
 
             //登录日志
-            /*$user = AdminLogModel::create([
+            //记录类型1下载2签到3发布4评论5登录
+            $user = UserLogModel::create([
                 'username'  =>  $username,
-                'ip' =>  $ip
-            ]);*/
+                'type'  =>  5,
+                'user_id' =>  $ip,
+                'user_ip' =>  $user_id
+            ]);
 
-            $msg = ['code' => 200, 'msg' => '登录成功！' . session('index_name')];
+            $msg = ['code' => 200, 'msg' => '登录成功！' . session('user_name')];
             return json($msg);
         }
         //return redirect('index');
@@ -98,6 +104,29 @@ class Login extends BaseController
     public function indexForget()
     {
         return View::fetch();
+    }
+
+
+    //退出逻辑
+//    public function out()
+//    {
+//        Session::clear();
+//        return View::fetch('index/course');
+//    }
+
+
+    //是否登录
+    public function isLogin()
+    {
+        if (session('?user_name')){
+            $user_name = session('user_name');
+        }
+        //获取ID
+        $user_data = UserModel::where('username','=',$user_name)->find();
+        $code = $user_data ? 200:404;
+        $msg = ['code' => $code, 'user_name' => $user_name,'user_data' => $user_data, ];
+
+        return json($msg);
     }
 
 

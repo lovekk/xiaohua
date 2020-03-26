@@ -33,45 +33,6 @@ class Common extends BaseController
     }
 
 
-    //课程
-    public function course()
-    {
-        return View::fetch('home/index/course');
-    }
-
-
-    //源码
-    public function code()
-    {
-        return View::fetch();
-    }
-
-
-    //vip
-    public function vip()
-    {
-        return View::fetch();
-    }
-
-
-    //sign
-    public function sign()
-    {
-        return View::fetch();
-    }
-
-
-    //sign
-    public function login()
-    {
-        return View::fetch();
-    }
-
-    //sign
-    public function register()
-    {
-        return View::fetch();
-    }
 
 
 }

@@ -5,6 +5,7 @@ use think\facade\Route;
 //======================前端 路由======================
 //首页
 Route::get('/', 'Index/index');
+Route::get('tags', 'Common/tags');
 //课程页
 Route::get('course', 'Index/course')->name('course');
 Route::get('course_list/:id', 'Index/courseList')->name('course_list');
@@ -26,6 +27,10 @@ Route::get('register', 'Login/register')->name('register');
 Route::get('index_register', 'Login/indexRegister')->name('index_register');
 Route::get('forget', 'Login/forget')->name('forget');
 Route::get('index_forget', 'Login/indexForget')->name('index_forget');
+//退出登录
+Route::get('out', 'Login/out')->name('out');
+//判断是否登录
+Route::get('is_login', 'Login/isLogin')->name('is_login');
 
 
 
