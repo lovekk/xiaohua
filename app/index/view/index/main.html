@@ -1,14 +1,56 @@
 <!--头部-->
-{include file="common/head" title="课程"/}
+
+{include file="common/head" title="第一编程网"/}
 <!--搜索框-->
 {include file="common/search" /}
-
 <!-- Start of Page Container -->
 <div class="page-container">
     <div class="container">
         <div class="row">
+
             <!-- start of page content -->
             <div class="span8 page-content">
+
+                <!-- Basic Home Page Template -->
+                <div class="row separator">
+                    <section class="span4 articles-list">
+                        <h3>热门资源</h3>
+                        <ul class="articles">
+                            {volist name='hot_course' id='item'}
+                            <!--类型 1视频 2源码 3电子书 4软件 5图文-->
+                            <li class="article-entry shipin{$item.type}">
+                                <h4><a href="{:url('course_detail', ['id'=>$item.id])}">{$item.title}</a></h4>
+                                <span class="article-meta" style="color: #375742">{$item.create_time|date='Y-m-d'}
+                                    <a href="{:url('course_list', ['id'=>$item.classification.id])}" >【{$item.classification.name}】</a>【{$item.des}】
+                                </span>
+                                <a href="{:url('course_detail', ['id'=>$item.id])}">
+                                    <span class="like-count">{$item.down_num}</span>
+                                </a>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </section>
+
+
+                    <section class="span4 articles-list">
+                        <h3>最新资源</h3>
+                        <ul class="articles">
+                            {volist name='new_course' id='item'}
+                            <!--类型 1视频 2源码 3电子书 4软件 5图文-->
+                            <li class="article-entry shipin{$item.type}">
+                                <h4><a href="{:url('course/detail', ['id'=>$item.id]) }">{$item.title}</a></h4>
+                                <span class="article-meta"  style="color: #375742">{$item.create_time|date='Y-m-d'}
+                                    <a href="{:url('course/list', ['id'=>$item.id]) }">【{$item.classification.name}】</a>【{$item.des}】
+                                </span>
+                                <span class="like-count">
+                                    <a href="index.html">{$item.down_num}</a>
+                                </span>
+                            </li>
+                            {/volist}
+                        </ul>
+                    </section>
+                </div>
+
 
                 <div>
                     <div class="row home-category-list-area">
@@ -21,10 +63,8 @@
                         {volist name='hello' id='item'}
                         <section class="span4" style="margin: 0">
                             <h4 class="" >
-                                <a href="{:url('course_list', ['id'=>$item.id])}">
-                                    <img src="__STORAGE__/{$item.img}" style="width: 64px">
-                                </a>
-                                <a href="{:url('course_list', ['id'=>$item.id])}" style="color: #375742">【{$item.name}】</a>
+                                <img src="__STORAGE__/{$item.img}" style="width: 64px">
+                                <a href="#" style="color: #375742">【{$item.name}】</a>
                             </h4>
                             <div class="category-description">
                                 <p>资源:{$item.course_num} 下载次数:{$item.download_num}</p>
@@ -85,13 +125,14 @@
             </div>
             <!-- end of page content -->
 
+
             <!-- start of sidebar -->
             <aside class="span4 page-sidebar">
                 <!--联系支持-->
                 {include file="common/support" /}
                 <!--快速链接-->
                 {include file="common/links" /}
-                <!--课程分类标签-->
+                <!--分类标签-->
                 {include file="common/tags" /}
             </aside>
             <!-- end of sidebar -->
@@ -100,6 +141,4 @@
 </div>
 <!-- End of Page Container -->
 
-
-<!--搜索框-->
 {include file="common/foot" /}

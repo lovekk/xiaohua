@@ -19,9 +19,9 @@
                             {volist name='hot_course' id='item'}
                             <!--类型 1视频 2源码 3电子书 4软件 5图文-->
                             <li class="article-entry shipin{$item.type}">
-                                <h4><a href="{:url('course_detail', ['id'=>$item.id])}">{$item.title}</a></h4>
-                                <span class="article-meta">{$item.create_time|date='Y-m-d'}
-                                    <a href="{:url('course_list', ['id'=>$item.classification.id])}" style="color: #375742">【{$item.classification.name}】</a>
+                                <h4><a href="{:url('course_detail', ['id'=>$item.id])}" target="_blank">{$item.title}</a></h4>
+                                <span class="article-meta" style="color: #375742">{$item.create_time|date='Y-m-d'}
+                                    <a href="{:url('course_list', ['id'=>$item.classification.id])}" >【{$item.classification.name}】</a>【{$item.des}】
                                 </span>
                                 <a href="{:url('course_detail', ['id'=>$item.id])}">
                                     <span class="like-count">{$item.down_num}</span>
@@ -38,13 +38,13 @@
                             {volist name='new_course' id='item'}
                             <!--类型 1视频 2源码 3电子书 4软件 5图文-->
                             <li class="article-entry shipin{$item.type}">
-                                <h4><a href="{:url('course/detail', ['id'=>$item.id]) }">{$item.title}</a></h4>
-                                <span class="article-meta">{$item.create_time|date='Y-m-d'}
-                                    <a href="{:url('course/list', ['id'=>$item.id]) }" style="color: #375742">【{$item.classification.name}】</a>
+                                <h4><a href="{:url('course_detail', ['id'=>$item.id]) }" target="_blank">{$item.title}</a></h4>
+                                <span class="article-meta"  style="color: #375742">{$item.create_time|date='Y-m-d'}
+                                    <a href="{:url('course_list', ['id'=>$item.classification.id]) }">【{$item.classification.name}】</a>【{$item.des}】
                                 </span>
-                                <span class="like-count">
-                                    <a href="index.html">{$item.down_num}</a>
-                                </span>
+                                <a href="{:url('course_detail', ['id'=>$item.id])}">
+                                    <span class="like-count">{$item.down_num}</span>
+                                </a>
                             </li>
                             {/volist}
                         </ul>

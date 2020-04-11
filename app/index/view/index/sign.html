@@ -2,8 +2,10 @@
 {include file="common/head" title="签到"/}
 
 <link rel="stylesheet" href="__SIGN__/css/style.css">
-
+<!--弹窗-->
+<link href="__ADMIN__/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 <!-- Start of Page Container -->
+{$sign}
 <div class="page-container">
     <div class="container">
         <div class="row">
@@ -15,10 +17,10 @@
                     </div>
                     <center>
                     <div id="app-cover">
-
                         <h1>今天心情如何？</h1>
+                        {if $sign}
                         <div id="app">
-                            <div class="mood" id="mood-great">
+                            <div onclick="toMood(1)" class="mood" id="mood-great">
                                 <div class="face">
                                     <div class="eyes-cover">
                                         <div class="eye"></div>
@@ -28,7 +30,7 @@
                                 </div>
                                 <div class="mood-name"><span>非常好</span></div>
                             </div>
-                            <div class="mood" id="mood-okay">
+                            <div onclick="toMood(2)" class="mood" id="mood-okay">
                                 <div class="face">
                                     <div class="eyes-cover">
                                         <div class="eye"></div>
@@ -38,7 +40,7 @@
                                 </div>
                                 <div class="mood-name"><span>一般</span></div>
                             </div>
-                            <div class="mood" id="mood-bad">
+                            <div onclick="toMood(3)" class="mood" id="mood-bad">
                                 <div class="face">
                                     <div class="eyes-cover">
                                         <div class="eye"></div>
@@ -48,7 +50,7 @@
                                 </div>
                                 <div class="mood-name"><span>不开心</span></div>
                             </div>
-                            <div class="mood" id="mood-wu">
+                            <div onclick="toMood(4)" class="mood" id="mood-wu">
                                 <div class="face">
                                     <div class="eyes-cover">
                                         <div class="eye"></div>
@@ -59,12 +61,57 @@
                                 <div class="mood-name"><span>无所谓</span></div>
                             </div>
                         </div>
+                        {else}
+                        <div id="app1">
+                            <div onclick="toTip()" class="mood" id="mood-great1">
+                                <div class="face">
+                                    <div class="eyes-cover">
+                                        <div class="eye"></div>
+                                        <div class="eye"></div>
+                                    </div>
+                                    <div class="mouth"></div>
+                                </div>
+                                <div class="mood-name"><span>非常好</span></div>
+                            </div>
+                            <div onclick="toTip()" class="mood" id="mood-okay1">
+                                <div class="face">
+                                    <div class="eyes-cover">
+                                        <div class="eye"></div>
+                                        <div class="eye"></div>
+                                    </div>
+                                    <div class="mouth"></div>
+                                </div>
+                                <div class="mood-name"><span>一般</span></div>
+                            </div>
+                            <div onclick="toTip()" class="mood" id="mood-bad1">
+                                <div class="face">
+                                    <div class="eyes-cover">
+                                        <div class="eye"></div>
+                                        <div class="eye"></div>
+                                    </div>
+                                    <div class="mouth"></div>
+                                </div>
+                                <div class="mood-name"><span>不开心</span></div>
+                            </div>
+                            <div onclick="toTip()" class="mood" id="mood-wu1">
+                                <div class="face">
+                                    <div class="eyes-cover">
+                                        <div class="eye"></div>
+                                        <div class="eye"></div>
+                                    </div>
+                                    <div class="mouth"></div>
+                                </div>
+                                <div class="mood-name"><span>无所谓</span></div>
+                            </div>
+                        </div>
+                        {/if}
+
                     </div>
                     </center>
                 </div>
 
-
             </div>
+            <a hidden="hidden" href="{:url('login')}" id="tologin"></a>
             <!-- end of page content -->
 
             <!-- start of sidebar -->
@@ -85,3 +132,59 @@
 
 <!--搜索框-->
 {include file="common/foot" /}
+<script src="__H__/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script>
+    function toMood(mood) {
+        var user_name="{:session('user_name')}";
+        var user_id="{:session('user_id')}";
+        console.log(user_name);
+        if (user_name.length >= 2 && user_name){
+            console.log(mood);
+            $.ajax({
+                async : false,    //表示请求是否异步处理
+                type : "post",    //请求类型
+                url : 'to_sign',//请求的 URL地址
+                dataType : "json",//返回的数据类型
+                data : {
+                    'user_id' : user_id,
+                    'user_name' : user_name,
+                    'mood' : mood
+                },
+                success: function (data) {
+                    //console.log(data.code);  //在控制台打印服务器端返回的数据
+                    if(data.code === 200){
+                        swal("签到成功！", "您已签到，IT币 +5", "success");
+                        setTimeout(function(){
+                            window.location.reload();
+                        },1000);
+                    }else{
+                        swal("签到失败！", "数据存在错误。", "success");
+                    }
+                },
+                error:function (data) {
+                    //console.log(222 + data.result);
+                }
+            });
+
+        }else {
+            swal({
+                title: "欢迎来到《第一编程网》",
+                text: "您还没有登录，请先登录呦~。",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#2E8B57",
+                confirmButtonText: "去登录",
+                closeOnConfirm: false
+            }, function () {
+                document.getElementById('tologin').click()
+            });
+        }
+
+    }
+    function toTip() {
+        swal("今日已经签到！", "您已签到，明天再来呦~", "success");
+        setTimeout(function(){
+            window.location.reload();
+        },1000);
+    }
+</script>

@@ -9,14 +9,17 @@
 namespace app\index\controller;
 
 use app\BaseController;
+use app\index\model\UserLog;
 use think\facade\Db;
 use think\facade\Request;
 use think\facade\View;
 
 use app\index\model\User as UserModel;
+use app\index\model\UserLog as UserLogModel;
 use app\index\model\Course as CourseModel;
 use app\index\model\Classification as ClassificationModel;
 use app\index\model\Comment as CommentModel;
+use app\index\model\Sign as SignModel;
 
 /*
  *
@@ -24,10 +27,6 @@ use app\index\model\Comment as CommentModel;
 class Index extends BaseController
 {
 
-    //跳转到index
-//    public function index(){
-//        return redirect('index');
-//    }
     //首页
     public function index()
     {
@@ -53,6 +52,7 @@ class Index extends BaseController
 
         return View::fetch();
     }
+
 
 
     //课程
@@ -98,6 +98,7 @@ class Index extends BaseController
             $query->field('id,username,head_img,vip_type');
         }])->where('course_id','=',$id)->order('id','desc')->select();
         //halt($comment);
+        //浏览+1
         //标签
         $hello = ClassificationModel::where('type','=',1)->select();
         $ai = ClassificationModel::where('type','=',2)->select();
@@ -145,7 +146,7 @@ class Index extends BaseController
     }
 
 
-    //签到
+    //签到页面
     public function sign()
     {
         //课程类别
@@ -155,6 +156,19 @@ class Index extends BaseController
         View::assign('hello',$hello);
         View::assign('ai',$ai);
         View::assign('media',$media);
+        View::assign('sign',true);
+
+        $id = session('user_id');
+        if ($id){
+            $today = date("Y-m-d");
+            $username = SignModel::order('id','desc')
+                ->where('user_id','=',$id)
+                ->where('date','=',$today)
+                ->value('username');
+            if ($username){
+                View::assign('sign',false);
+            }
+        }
         return View::fetch();
     }
 
@@ -176,13 +190,22 @@ class Index extends BaseController
     //个人主页
     public function my()
     {
+        $id = session('user_id');
+        $user_data = UserModel::find($id);
+        $user_log = UserLogModel::where('user_id','=',$id)->select();
+
         //课程类别
         $hello = ClassificationModel::where('type','=',1)->select();
         $ai = ClassificationModel::where('type','=',2)->select();
         $media = ClassificationModel::where('type','=',3)->select();
+
         View::assign('hello',$hello);
         View::assign('ai',$ai);
         View::assign('media',$media);
+
+        View::assign('user_data',$user_data);
+        View::assign('user_log',$user_log);
+
         return View::fetch();
     }
 
@@ -196,6 +219,27 @@ class Index extends BaseController
         View::assign('hello',$hello);
         View::assign('ai',$ai);
         View::assign('media',$media);
+        return View::fetch();
+    }
+
+
+
+    //搜索search
+    public function searchResult(){
+        $key_word = Request::param('key_word');
+
+        $search_result = CourseModel::where('title','like','%'.$key_word.'%')->paginate([
+            'list_rows'=> 2,
+            'query' => request()->param(),
+        ]);
+        $count = $search_result->total();
+        // 获取分页显示
+        $page = $search_result->render();
+        View::assign('key_word',$key_word);
+        View::assign('count',$count);
+        View::assign('search_result',$search_result);
+        View::assign('page',$page);
+
         return View::fetch();
     }
 

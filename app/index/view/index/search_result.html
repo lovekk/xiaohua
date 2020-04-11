@@ -1,0 +1,94 @@
+{include file="common/head" title="第一编程网"/}
+
+<style>
+    .pagination {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .pagination li {
+        display: inline-block;
+        padding: 5px;
+    }
+    .input-group {
+        position: relative;
+
+    }
+
+</style>
+<!-- Start of Page Container -->
+<div class="page-container">
+    <div class="container">
+        <div class="row">
+            <!-- start of page content -->
+            <div class="span12 page-content">
+
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <h2>
+                            为您找到相关结果约{$count}个： <span class="text-navy">“{$key_word}”</span>
+                        </h2>
+                        <!--<small>搜索用时  (0.23秒)</small>-->
+                        <div class="search-form">
+                            <form action="{:url('search_result')}" method="get">
+                                <div class="input-group" >
+                                    <input type="text" placeholder="请输入关键字" name="key_word" id="key_word" style="width: 80%;height: 35px" required>
+                                    <button class="btn" type="submit" style="height: 43px;margin-top: -6px;width: 100px">
+                                        搜索
+                                    </button>
+
+                                </div>
+                            </form>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="search-result">
+                            <h3><a href="search_results.html#">定制后台的主题目录(Theme)</a></h3>
+                            <a href="search_results.html#" class="search-link">koda.iteye.com/blog/10...</a>
+                            <p>
+                                不像前台Theme目录的改变可以通过后台界面配置,后台的主题目录要自己修改相应的配置文件。 Theme目录的配置再Adminhtml模块,打开后台的配置文件 $MAGENO_DIR\app\code...
+                            </p>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        {volist name='search_result' id='item'}
+                        <div class="search-result">
+                            <h3><a href="{:url('course_detail', ['id'=>$item.id])}">{$item.title}</a></h3>
+                            <a href="search_results.html#" class="search-link">koda.iteye.com/blog/10...</a>
+                            <p>
+                                不像前台Theme目录的改变可以通过后台界面配置,后台的主题目录要自己修改相应的配置文件。 Theme目录的配置再Adminhtml模块,打开后台的配置文件 $MAGENO_DIR\app\code...
+                            </p>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        {/volist}
+
+                        {$page|raw}
+                        <div class="text-center">
+
+                            <div class="btn-group">
+
+                                <!--<button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i>-->
+                                <!--</button>-->
+                                <!--<button class="btn btn-white">1</button>-->
+                                <!--<button class="btn btn-white  active">2</button>-->
+                                <!--<button class="btn btn-white">3</button>-->
+                                <!--<button class="btn btn-white">4</button>-->
+                                <!--<button class="btn btn-white">5</button>-->
+                                <!--<button class="btn btn-white">6</button>-->
+                                <!--<button class="btn btn-white">7</button>-->
+                                <!--<button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i>-->
+                                <!--</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- end of page content -->
+
+        </div>
+    </div>
+</div>
+
+
+<!--尾部-->
+{include file="common/foot" /}

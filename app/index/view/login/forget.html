@@ -11,7 +11,9 @@
     <link href="__H__/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="__H__/css/animate.css" rel="stylesheet">
     <link href="__H__/css/style.css?v=4.1.0" rel="stylesheet">
-    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+    <!--弹窗-->
+    <link href="__ADMIN__/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
 </head>
 
 <body class="gray-bg">
@@ -22,18 +24,43 @@
             </div>
             <h3>《第一编程网》</h3>
             <p>找回密码</p>
-            <form class="m-t" role="form" action="login.html">
+            <form class="m-t" role="form" action="">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="回答问题" required="">
+                    <input type="text" class="form-control" name="username" id="username" placeholder="用户名" required="">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="请输入密码" required="">
+                    <select class="form-control m-b" id="question" name="question">
+                        <option value="1">您女/男朋友姓名：</option>
+                        <option value="2">您的姓名：</option>
+                        <option value="3">您所在城市：</option>
+                        <option value="4">您的手机号：</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="请再次输入密码" required="">
+                    <input type="text" class="form-control" name="answer" id="answer" placeholder="答案" required="">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="重设新密码" required="" id="password" name="password">
+                </div>
+                <div class="form-group text-left">
+                    <!--用户名错误提示-->
+                    <span style="color: red" id="tip1"></span>
+                    <span style="color: green" id="tip2"></span>
+                </div>
+                <div class="form-group text-left">
+                    <!--密码错误提示-->
+                    <span style="color: red" id="tip3"></span>
+                </div>
+                <div class="form-group text-left">
+                    <!--错误提示-->
+                    <span style="color: red" id="tip4"></span>
+                </div>
+                <div class="form-group text-left">
+                    <!--错误提示-->
+                    <span style="color: red" id="tip5"></span>
                 </div>
 
-                <button type="submit" class="btn btn-primary block full-width m-b">确定</button>
+                <div onclick="to_submit()" class="btn btn-primary block full-width m-b">确定</div>
                 <p class="text-muted text-center"><a href="{:url('login')}">点此登录</a>
                 </p>
 
@@ -43,16 +70,115 @@
 
     <!-- 全局js -->
     <script src="__H__/js/jquery.min.js?v=2.1.4"></script>
-    <script src="__H__/s/bootstrap.min.js?v=3.3.6"></script>
     <!-- iCheck -->
     <script src="__H__/js/plugins/iCheck/icheck.min.js"></script>
+    <script src='__INDEX__/js/jquery-1.8.3.min.js'></script>
+    <script src="__H__/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="__LAYER__/layer.js"></script>
+
     <script>
-        $(document).ready(function () {
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
+
+        $("#username").blur(function(){
+            var username = $("#username").val();
+            console.log(username);
+            if (username.length >= 2 && username.length <=12){
+                $("#tip3").text('');
+            }else {
+                $("#tip3").text('用户名长度在2-12之间呦~');
+            }
         });
+
+        var code = 400;
+        //匹配答案
+        $("#answer").blur(function(){
+            var username = $("#username").val();
+            var question = $("#question").val();
+            var answer = $("#answer").val();
+            //alert(name);
+            if (answer.length > 0){
+                $("#tip4").text('');
+                $.ajax({
+                    async : false,    //表示请求是否异步处理
+                    type : "post",    //请求类型
+                    url : 'check_question',//请求的 URL地址
+                    dataType : "json",//返回的数据类型
+                    data : {
+                        'username' : username,
+                        'question' : question,
+                        'answer' : answer
+                    },
+                    success: function (data) {
+                        console.log(data.code);  //在控制台打印服务器端返回的数据
+                        console.log(data);  //在控制台打印服务器端返回的数据
+                        if(data.code === 200){
+                            $("#tip1").text('');
+                            $("#tip2").text(data.msg);
+                            code = 200;
+                        }else{
+                            $("#tip2").text('');
+                            $("#tip1").text(data.msg);
+                            code = 400;
+                        }
+                    },
+                    error:function (data) {
+                        $("#tip1").text(data.msg);
+                        code = 400;
+                    }
+                });
+            } else {
+                $("#tip4").text('请输入答案');
+                code = 400;
+            }
+        });
+
+
+        function to_submit() {
+            var username = $("#username").val();
+            var question = $("#question").val();
+            var answer = $("#answer").val();
+            var password = $("#password").val();
+            if (password.length < 6){
+                $("#tip4").text('请设置密码大于6位~');
+                return false;
+            }else {
+                $("#tip4").text('');
+            }
+            if (answer.length === 0){
+                $("#tip5").text('答案不能为空');
+                return false;
+            }else {
+                $("#tip5").text('');
+            }
+            if (password.length >= 6 && answer.length !== 0 && code === 200){
+                $.ajax({
+                    async : false,    //表示请求是否异步处理
+                    type : "post",    //请求类型
+                    url : 'to_forget',//请求的 URL地址
+                    dataType : "json",//返回的数据类型
+                    data : {
+                        'username' : username,
+                        'question' : question,
+                        'answer' : answer,
+                        'password' : password
+                    },
+                    success: function (data) {
+                        //console.log(data.code);  //在控制台打印服务器端返回的数据
+                        if(data.code === 200){
+                            swal("修改密码成功！", "请登录。", "success");
+                            setTimeout(function(){
+                                window.history.go(-1);
+                            },1000);
+                        }else{
+                            swal("修改密码失败！", "请重新填写。", "success");
+                        }
+                    },
+                    error:function (data) {
+                        //console.log(222 + data.result);
+                    }
+                });
+            }
+        }
+
     </script>
 </body>
 

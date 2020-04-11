@@ -25,6 +25,7 @@ class Admin extends BaseController
         // 获取分页显示
         $page = $list->render();
 
+
         return view('', ['list' => $list, 'page' => $page]);
     }
 
@@ -49,13 +50,15 @@ class Admin extends BaseController
 
         //$remark = !empty(request('remark')) ? request('remark') : '无备注';
         $remark = Request::param('remark');
+        $sex = Request::param('sex');
         $len = strlen($password);
 
         if ($username && $len>=4) {
             $created = [
                 'username' => $username,
                 'password' => $password,
-                'remark' => $remark
+                'remark' => $remark,
+                'sex' => $sex
             ];
 
             $data = AdminModel::create($created);
@@ -74,7 +77,7 @@ class Admin extends BaseController
      */
     public function adminLog()
     {
-        $list = AdminLogModel::order('id','desc')->paginate(5);
+        $list = AdminLogModel::order('id','desc')->paginate(10);
         // 获取分页显示
         $page = $list->render();
 

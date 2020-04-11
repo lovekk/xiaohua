@@ -11,7 +11,8 @@
     <link href="__H__/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="__H__/css/animate.css" rel="stylesheet">
     <link href="__H__/css/style.css?v=4.1.0" rel="stylesheet">
-    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
+    <!--弹窗-->
+    <link href="__ADMIN__/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 </head>
 
 <body class="gray-bg">
@@ -24,40 +25,152 @@
             <p>创建新账户</p>
             <form class="m-t" role="form" action="login.html">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="请输入用户名" required="">
+                    <input type="text" class="form-control" placeholder="请输入用户名" name="username" id="username" required="">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="请输入密码" required="">
+                    <input type="password" class="form-control" placeholder="请输入密码" id="password" name="password" required="">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="请再次输入密码" required="">
+                    <input type="password" class="form-control" placeholder="请再次输入密码" id="password2" name="password2" required="">
+                </div>
+                <div class="form-group">
+                    <select class="form-control m-b" id="question" name="question">
+                        <option value="1">您女/男朋友姓名：</option>
+                        <option value="2">您的姓名：</option>
+                        <option value="3">您所在城市：</option>
+                        <option value="4">您的手机号：</option>
+                    </select>
+                </div>
+                <div class="form-group text-left"> &nbsp;&nbsp;&nbsp;&nbsp;请记住答案 用于密码找回呦~</div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="answer" id="answer" placeholder="答案" required="">
+                </div>
+                <!--<div class="form-group text-left">-->
+                    <!--<div class="checkbox i-checks">-->
+                        <!--<label class="no-padding">-->
+                            <!--<input type="checkbox"><i></i> 我同意注册协议</label>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="form-group text-left">
+                    <!--用户名错误提示-->
+                    <span style="color: red" id="tip1"></span>
+                    <span style="color: green" id="tip2"></span>
                 </div>
                 <div class="form-group text-left">
-                    <div class="checkbox i-checks">
-                        <label class="no-padding">
-                            <input type="checkbox"><i></i> 我同意注册协议</label>
-                    </div>
+                    <!--密码错误提示-->
+                    <span style="color: red" id="tip3"></span>
                 </div>
-                <button type="submit" class="btn btn-primary block full-width m-b">注 册</button>
+                <div class="form-group text-left">
+                    <!--错误提示-->
+                    <span style="color: red" id="tip4"></span>
+                </div>
+                <div class="btn btn-primary block full-width m-b" onclick="to_submit()">注 册</div>
                 <p class="text-muted text-center"><small>已经有账户了？</small><a href="{:url('login')}">点此登录</a>
                 </p>
-
             </form>
         </div>
     </div>
 
     <!-- 全局js -->
     <script src="__H__/js/jquery.min.js?v=2.1.4"></script>
-    <script src="__H__/s/bootstrap.min.js?v=3.3.6"></script>
     <!-- iCheck -->
     <script src="__H__/js/plugins/iCheck/icheck.min.js"></script>
+    <script src='__INDEX__/js/jquery-1.8.3.min.js'></script>
+    <script src="__H__/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="__LAYER__/layer.js"></script>
+
     <script>
-        $(document).ready(function () {
-            $('.i-checks').iCheck({
-                checkboxClass: 'icheckbox_square-green',
-                radioClass: 'iradio_square-green',
-            });
+
+        var code = 400;
+        $("#username").blur(function(){
+            var name = $("#username").val();
+            //alert(name);
+            if (name.length >= 2 && name.length <=12){
+                $.ajax({
+                    async : false,    //表示请求是否异步处理
+                    type : "post",    //请求类型
+                    url : 'to_judge',//请求的 URL地址
+                    dataType : "json",//返回的数据类型
+                    data : {
+                        'username' : name,
+                    },
+                    success: function (data) {
+                        console.log(data.code);  //在控制台打印服务器端返回的数据
+                        console.log(data);  //在控制台打印服务器端返回的数据
+                        if(data.code === 200){
+                            $("#tip1").text('');
+                            $("#tip2").text('用户名可用');
+                            code = 200;
+                        }else{
+                            $("#tip2").text('');
+                            $("#tip1").text('用户名重复，请更换用户名');
+                            code = 400;
+                        }
+                    },
+                    error:function (data) {
+                        $("#tip1").text('用户名重复，请更换用户名');
+                        code = 400;
+                    }
+                });
+            } else {
+                $("#tip2").text('');
+                $("#tip1").text('用户名长度在2-12之间呦~');
+                code = 400;
+            }
         });
+
+        
+        function to_submit() {
+            var p1 = $("#password").val();
+            var p2 = $("#password2").val();
+            var answer = $("#answer").val();
+            if (p1 !== p2){
+                $("#tip3").text('两次密码不一样');
+                return false;
+            }else {
+                $("#tip3").text('');
+            }
+            if (answer.length === 0){
+                $("#tip4").text('答案不能为空');
+                return false;
+            }else {
+                $("#tip4").text('');
+            }
+            if (p1 === p2 && answer.length !== 0 && code === 200){
+                $.ajax({
+                    async : false,    //表示请求是否异步处理
+                    type : "post",    //请求类型
+                    url : 'to_register',//请求的 URL地址
+                    dataType : "json",//返回的数据类型
+                    data : {
+                        'username' : $("#username").val(),
+                        'password' : p1,
+                        'question' : $("#question").val(),
+                        'answer' : answer
+                    },
+                    success: function (data) {
+                        //console.log(data.code);  //在控制台打印服务器端返回的数据
+                        if(data.code === 200){
+                            swal("注册成功！", "请登录。", "success");
+                            setTimeout(function(){
+                                window.history.go(-1);
+                            },1000);
+                        }else{
+                            swal("注册失败！", "请重新注册。", "success");
+                        }
+                    },
+                    error:function (data) {
+                        //console.log(222 + data.result);
+                    }
+                });
+            }
+        }
+
+
+
+
+
+
     </script>
 </body>
 

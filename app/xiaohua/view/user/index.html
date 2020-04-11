@@ -43,6 +43,7 @@
                                     <th>签到数</th>
                                     <th>下载数</th>
                                     <th>创建时间</th>
+                                    <th>操作</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -50,8 +51,18 @@
                                 <tr class="gradeA">
                                     <td>{$item.id}</td>
                                     <td>{$item.username}</td>
-                                    <td>{$item.head_img}</td>
-                                    <td class="center">{$item.vip_type}</td>
+                                    <td><img src="__STORAGE__/{$item.head_img}" width="50px"></td>
+                                    <td class="center">
+                                        {if ($item.vip_type == 1)}
+                                        <span class="label label-primary">1体验VIP</span>
+                                        {elseif ($item.vip_type == 2)}
+                                        <span class="label label-warning">2年费VIP</span>
+                                        {elseif ($item.vip_type == 3)}
+                                        <span class="label label-success">3终身VIP</span>
+                                        {else}
+                                        <span class="label">普通</span>
+                                        {/if}
+                                    </td>
                                     <td class="center">{$item.left_money}</td>
                                     <td class="center">{$item.vip_start}--{$item.vip_end}</td>
                                     <td class="center">{$item.vip_money}</td>
@@ -59,6 +70,7 @@
                                     <td class="center">{$item.sign_num}</td>
                                     <td class="center">{$item.down_num}</td>
                                     <td class="center">{$item.create_time}</td>
+                                    <td class="center">详情|修改</td>
                                 </tr>
                             {/volist}
                             </tbody>

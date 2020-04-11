@@ -25,7 +25,6 @@
     <link rel='stylesheet' id='green-skin-css'  href='__INDEX__/css/green-skin5152.css?ver=1.0' type='text/css' media='all' />
     <link rel='stylesheet' id='custom-css-css' href='__INDEX__/css/custom5152.html?ver=1.0' type='text/css'
           media='all'/>
-
     <link href="__H__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="__H__/css/animate.css" rel="stylesheet">
     <link href="__H__/css/style.css?v=4.1.0" rel="stylesheet">
@@ -36,7 +35,7 @@
     <![endif]-->
 </head>
 
-<body onload="is_login()">
+<body>
 <!-- Start of Header -->
 <div class="header-wrapper" style="background-color: #2B9D93;">
     <header>
@@ -55,9 +54,9 @@
                 <div class="menu-top-menu-container">
                     <ul id="menu-top-menu" class="clearfix" style="font-size: 22px">
                         <li class="current-menu-item"><a href="{:url('/')}">首页</a></li>
-                        <li><a href="{:url('course')}" target="_blank">课程</a></li>
-                        <li><a href="{:url('code')}" target="_blank">源码</a></li>
-                        <li><a href="{:url('vip')}">VIP</a></li>
+                        <li><a href="{:url('course')}">课程</a></li>
+                        <li><a href="{:url('code')}">源码</a></li>
+                        <li><a href="{:url('vip')}">VIP赞助</a></li>
                         <li><a href="{:url('sign')}">签到</a></li>
                         <!--下拉效果-->
                         <!--<li><a href="#">皮肤</a>-->
@@ -68,53 +67,27 @@
                                 <!--<li><a href="index-2.html">默认</a></li>-->
                             <!--</ul>-->
                         <!--</li>-->
-                        <li><a href="{:url('about')}">关于</a></li>
-                        <li id="my"><a href="{:url('login')}">登录/注册</a></li>
+
+                        <li><a href="{:url('about')}">关于我们</a></li>
+                        <!--<li id="my"><a href="{:url('login')}">登录/注册</a></li>-->
+
+                        {empty name="$Request.session.user_name"}
+                            <li><a href="{:url('login')}">登录/注册</a></li>
+                        {else /}
+                        <li ><a href="{:url('my')}" style="font-weight: 300">{:session('user_name')}</a>
+                            <ul class="sub-menu">
+                                <li><a href="{:url('my')}">我的信息</a></li>
+                                <li><a href="{:url('out')}">退出</a></li>
+                            </ul>
+                        </li>
+                        {/empty}
+
+
                     </ul>
                 </div>
             </nav>
             <!-- End of Main Navigation -->
-
         </div>
     </header>
 </div>
-<!-- End of Header -->
-<script>
-    function is_login() {
 
-        var name = sessionStorage.getItem('user_name');
-        if(name !== 'undefined'){
-            $("#my").html("<a href="+"{:url('my')}"+"> "+name+" </a>" +
-                '<ul class="sub-menu">' +
-                "<li><a href="+"{:url('my')}"+">个人信息</a></li>" +
-                "<li><a href="+"#"+">退出</a></li>" +
-                "</ul>"
-            );
-        }else {
-            $.ajax({
-                async : false,    //表示请求是否异步处理
-                type : "get",    //请求类型
-                url : 'is_login',//请求的 URL地址
-                dataType : "json",//返回的数据类型
-                success: function (data) {
-                    sessionStorage.setItem('user_name',data.user_name);
-                    //console.log(data.user_name);
-                    //console.log(data.code);  //在控制台打印服务器端返回的数据
-                    if(data.code === 200){
-                        $("#my").html("<a href="+"{:url('my')}"+">"+data.user_name+"</a>" +
-                            '<ul class="sub-menu">' +
-                            "<li><a href="+"{:url('my')}"+">个人信息</a></li>" +
-                            "<li><a href="+"#"+">退出</a></li>" +
-                            "</ul>");
-                    }else{
-                        $("#my").html("<a href="+"{:url('login')}"+">登录/注册</a>");
-                    }
-                },
-                error:function (data) {
-                    //console.log(222 + data.result);
-                }
-            });
-        }
-
-    }
-</script>

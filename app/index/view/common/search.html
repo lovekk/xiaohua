@@ -4,8 +4,9 @@
         <h3 class="search-header">Have a Question?</h3>
         <p class="search-tag-line">If you have any question you can search with keywords!</p>
 
-        <form id="search-form" class="search-form clearfix" method="get" action="#" autocomplete="off">
-            <input class="search-term required" type="text" id="s" name="s" placeholder="请输入关键词" title="* 请输入一个关键词！"/>
+        <form id="search-form" class="search-form clearfix" method="get" action="{:url('search_result')}" autocomplete="off">
+            <input class="search-term required" type="text"
+                   id="key_word" name="key_word" placeholder="请输入关键词" title="* 请输入一个关键词！"/>
             <input class="search-btn" type="submit" value="搜索"/>
             <div id="search-error-container"></div>
         </form>

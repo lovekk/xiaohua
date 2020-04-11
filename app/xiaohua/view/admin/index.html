@@ -37,7 +37,6 @@
                                     <th>管理员</th>
                                     <th>密码</th>
                                     <th>性别</th>
-                                    <th>状态</th>
                                     <th>备注</th>
                                     <th>创建时间</th>
                                 </tr>
@@ -48,8 +47,15 @@
                                     <td>{$item.id}</td>
                                     <td>{$item.username}</td>
                                     <td>******</td>
-                                    <td class="center">{$item.sex}</td>
-                                    <td class="center">{$item.status}</td>
+                                    <td class="center">
+                                        {if ($item.sex == 1)}
+                                        <span class="label label-primary">男</span>
+                                        {elseif ($item.sex == 2)}
+                                        <span class="label label-success">女</span>
+                                        {else}
+                                        <span class="label">其他</span>
+                                        {/if}
+                                    </td>
                                     <td class="center">{$item.remark}</td>
                                     <td class="center">{$item.create_time}</td>
                                 </tr>

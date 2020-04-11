@@ -73,7 +73,9 @@ class User extends BaseController
      */
     public function userLog()
     {
-        $list = UserLogModel::order('id','desc')->paginate(5);
+        $list = UserLogModel::with(['user'=> function($query) {
+            $query->field('id,username');
+        }])->order('id','desc')->paginate(2);
         // 获取分页显示
         $page = $list->render();
 

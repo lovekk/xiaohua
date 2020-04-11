@@ -1,7 +1,7 @@
 <!--头部-->
-{include file="common/head" title="课程"/}
-<!--搜索框-->
-{include file="common/search" /}
+{include file="common/head" title="资源详情"/}
+<!--弹窗-->
+<link href="__ADMIN__/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
 <!-- Start of Page Container -->
 <div class="page-container">
@@ -24,14 +24,16 @@
                     <strong>Tags:&nbsp;&nbsp;</strong>{$detail.classification.name}
                 </span>
                 <br><br>
-                <div class="like-btn">
-                    <span class="down" onclick="down()">下载</span>
+                <div class="like-btn1" >
+                    <span class="down1" onclick="down({$detail.id})"> &nbsp;&nbsp;下载</span>
                 </div>
                 <br><hr/>
 
                 <p class="success" id="baidu">
                     <span>点击下载按钮，可获得资源的百度网盘链接！</span><br>
+                    <span id="link" style="font-weight: 500;color: black"></span>
                 </p>
+                <a hidden="hidden" href="{:url('login')}" id="tologin"></a>
 
                 <hr/><br>
                 <blockquote>
@@ -80,7 +82,7 @@
 
                     <div id="respond">
                         <h3>评论：</h3>
-                        <form action="#" method="post" id="commentform">
+                        <form action="{:url()}" method="post" id="commentform">
                             <div>
                                 <!--<label for="comment">Comment</label>-->
                                 <textarea class="span8" name="comment" id="comment" cols="58" rows="10"></textarea>
@@ -115,3 +117,57 @@
 
 <!--搜索框-->
 {include file="common/foot" /}
+<script src="__H__/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script>
+    function down(c_id) {
+        var user_name="{:session('user_name')}";
+        var user_id="{:session('user_id')}";
+        console.log(user_name);
+        if (user_name.length >= 2 && user_name){
+            console.log(c_id);
+            $.ajax({
+                async : false,    //表示请求是否异步处理
+                type : "post",    //请求类型
+                url : '{:url("down_course")}',//请求的 URL地址
+                dataType : "json",//返回的数据类型
+                data : {
+                    'user_id' : user_id,
+                    'user_name' : user_name,
+                    'c_id' : c_id
+                },
+                success: function (data) {
+                    //console.log(data.code);  //在控制台打印服务器端返回的数据
+                    if(data.code === 200){
+                        console.log(data.data.baiduyun);
+                        $("#link").html(
+                            data.data.baiduyun
+                            + "<br>解压密码："
+                            + data.data.rar_password
+                            +"<br>请复制保存，可在【用户名】-【我的信息】中查看已经下载的资源。");
+                    }else{
+                        swal("下载失败！", "数据存在错误。", "success");
+                    }
+                },
+                error:function (data) {
+
+                }
+            });
+
+        }else {
+            swal({
+                title: "欢迎来到《第一编程网》",
+                text: "您还没有登录，请先登录呦~。",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#2E8B57",
+                confirmButtonText: "去登录",
+                closeOnConfirm: false
+            }, function () {
+                document.getElementById('tologin').click()
+            });
+        }
+
+    }
+
+</script>
+

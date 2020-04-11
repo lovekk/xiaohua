@@ -9,6 +9,7 @@ use think\facade\Db;
 use think\facade\Filesystem;
 
 use app\xiaohua\model\Course as CourseModel;
+use app\xiaohua\model\Comment as CommentModel;
 use app\xiaohua\model\Classification as ClassificationModel;
 
 class Course extends BaseController
@@ -51,7 +52,7 @@ class Course extends BaseController
 
 
     /**
-     * 添加课程分类方法
+     * 添加课程方法
      */
     public function addCourse()
     {
@@ -67,6 +68,28 @@ class Course extends BaseController
         $view_num = Request::param('view_num');
         $down_num = Request::param('down_num');
         $comment_num = Request::param('comment_num');
+        //1视频 2源码 3电子书 4软件 5图文
+
+        switch ($type)
+        {
+            case 1:
+                $des = '视频';
+                break;
+            case 2:
+                $des = '源码';
+                break;
+            case 3:
+                $des = '电子书';
+                break;
+            case 4:
+                $des = '软件';
+                break;
+            case 5:
+                $des = '图文';
+                break;
+            default:
+                $des = '其他';
+        }
         // 获取表单上传文件 例如上传了001.jpg
         $file = request()->file('img');
         if ($file){
@@ -75,6 +98,8 @@ class Course extends BaseController
             $created = [
                 'name' => $name,
                 'type' => $type,
+                'des' => $des,
+                'class' => 1,
                 'classification_id' => $classification_id,
                 'title' => $title,
                 'content' => $content,
@@ -89,6 +114,8 @@ class Course extends BaseController
             $created = [
                 'name' => $name,
                 'type' => $type,
+                'des' => $des,
+                'class' => 1,
                 'classification_id' => $classification_id,
                 'title' => $title,
                 'content' => $content,
@@ -99,6 +126,9 @@ class Course extends BaseController
                 'comment_num' => $comment_num,
             ];
         }
+        ClassificationModel::update([
+            'course_num' => Db::raw('course_num+1')
+        ], ['id' => $classification_id]);
 
 
         $data = CourseModel::create($created);
@@ -180,7 +210,7 @@ class Course extends BaseController
 
 
     /**
-     * 添加分类视图
+     * 修改课程分类视图
      */
     public function classificationUpdate()
     {
@@ -276,7 +306,15 @@ class Course extends BaseController
      */
     public function comment()
     {
-        return View::fetch();
+        $list = CommentModel::with(
+            [
+                'user'=> function($query) {$query->field('id,username');},
+                'course'=> function($query) {$query->field('id,title');
+        }])->order('id','desc')->paginate(2);
+        // 获取分页显示
+        $page = $list->render();
+
+        return view('', ['list' => $list, 'page' => $page]);
     }
 
 
@@ -285,7 +323,7 @@ class Course extends BaseController
     /**
      * 课程用户提交
      */
-    public function submit()
+    public function courseUp()
     {
         return View::fetch();
     }

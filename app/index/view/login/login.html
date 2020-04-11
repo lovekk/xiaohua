@@ -20,7 +20,7 @@
 <body class="gray-bg">
     <div class="middle-box text-center loginscreen  animated fadeInDown">
         <div>
-            <div>
+            <div >
                 <h1 class="logo-name">A</h1>
             </div>
             <h3>欢迎登录《第一编程网》</h3>
@@ -57,7 +57,9 @@
                 $("#fail").text(data.msg);
             }else if(data.code == 200){
                 $("#fail").text('');
-                window.location.href="/index/course";
+                sessionStorage.setItem('user_name',data.user_name);
+                sessionStorage.setItem('user_id',data.user_id);
+                window.location.href="/";
 //                    setTimeout(function(){
 //                        //window.location.reload();
 //                        window.location.href="/xiaohua/index";
