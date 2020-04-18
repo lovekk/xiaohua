@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户详情</title>
+    <meta name="keywords" content="用户详情">
+    <meta name="description" content="用户详情">
+    <link rel="shortcut icon" href="__ADMIN__/favicon.ico">
+    <link href="__ADMIN__/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+    <link href="__ADMIN__/css/font-awesome.css?v=4.4.0" rel="stylesheet">
+    <!-- Data Tables -->
+    <link href="__ADMIN__/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/css/animate.css" rel="stylesheet">
+    <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    <!--弹窗-->
+    <link href="__ADMIN__/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>用户详情</h5>
+                </div>
+                <div class="ibox-content">
+                    <form id="form1" method="post" action="{:url('update_classification')}"
+                          enctype="multipart/form-data" class="form-horizontal">
+                        <div class="form-group">
+                            <input type="hidden" class="form-control" name="id" value="{$data.id}">
+                            <label class="col-sm-2 control-label">ID：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" disabled="" value="{$data.id}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" disabled="" value="{$data.username}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">密码：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" disabled="" value="{$data.password}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">密保：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" disabled="" value="{$data.question} / {$data.answer}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">头像：</label>
+                            <div class="col-sm-5">
+                                <img src="__STORAGE__/{$data.head_img}" width="60px">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">剩余IT币：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" disabled="" value="{$data.left_money}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">充值RMB：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" disabled="" value="{$data.invest_money}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">VIP类型：</label>
+                            <div class="col-sm-5">
+                                {if ($data.vip_type == 5)}
+                                <input type="text" class="form-control" disabled="" value="永久VIP">
+                                {elseif ($data.vip_type == 3)}
+                                <input type="text" class="form-control" disabled="" value="体验VIP【{$data.vip_start}---{$data.vip_end}】">
+                                {else}
+                                <input type="text" class="form-control" disabled="" value="普通会员">
+                                {/if}
+
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">数据：</label>
+                            <div class="col-sm-5">
+                                登录数：{$data.login_num} 签到数：{$data.sign_num} 下载数：{$data.down_num}
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">创建时间：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" disabled="" value="{$data.create_time}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">更新时间：</label>
+                            <div class="col-sm-5">
+                                <input type="text" class="form-control" disabled="" value="{$data.update_time}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <a class="btn btn-white" onclick="go_back()">返回</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
+<script src="__ADMIN__/js/content.js?v=1.0.0'"></script>
+<script src="__H__/js/plugins/sweetalert/sweetalert.min.js"></script>
+<script src="__LAYER__/layer.js"></script>
+<script src="__JS__/jquery.form.js"></script>
+<script>
+    function go_back() {
+        javascript:history.go(-1);
+    }
+</script>
+
+</body>
+</html>

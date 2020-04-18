@@ -142,3 +142,118 @@
 <!-- End of Page Container -->
 
 {include file="common/foot" /}
+
+<div class="page-container">
+    <div class="container">
+        <div class="row">
+            <!-- start of page content -->
+            <div class="span8 page-content">
+                <div class="row home-category-list-area">
+                    <div class="span8">
+                        <h2>整站源码</h2>
+                    </div>
+                </div>
+
+                <div class="row-fluid top-cats">
+                    {volist name='list' id='item'}
+                    <section class="span4">
+                        <div class="contact-box">
+
+                            <div class="col-sm-4">
+                                <div class="text-center">
+                                    <img alt="image" class=" m-t-xs img-responsive" src="__STORAGE__/{$item.img}">
+                                    <!--<div class="m-t-xs font-bold">CTO</div>-->
+                                </div>
+                            </div>
+                            <div class="col-sm-8">
+                                <h3><strong>企业官网小程序</strong></h3>
+                                <p><i class="fa fa-map-marker"></i> 【java】</p>
+                                <address>
+                                    <strong>简介：</strong><br>
+                                    E-mail:xxx@baidu.com<br>
+                                    企业官网小程序企业官网小程序企业官网小程序企业官网小程序企业官网小程序企业官网小程序，
+                                    企业官网小程序企业官网小程序企业官网小程序企业官网小程序企业官网小程序企业官网小程序
+                                </address>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </section>
+
+                    {/volist}
+                    {$page|raw}
+
+                </div>
+
+            </div>
+            <!-- end of page content -->
+
+            <!-- start of sidebar -->
+            <aside class="span4 page-sidebar">
+                <!--联系支持-->
+                {include file="common/support" /}
+                <!--快速链接-->
+                {include file="common/link" /}
+                {include file="common/new" /}
+
+            </aside>
+            <!-- end of sidebar -->
+        </div>
+    </div>
+</div>
+
+<div class="page-container">
+    <div class="container">
+        <div class="row">
+            <!-- start of page content -->
+            <div class="span12 page-content">
+                <div class="row home-category-list-area">
+                    <div class="span8">
+                        <h2>整站源码</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    {volist name='list' id='item'}
+                    <div class="span4" >
+                        <div class="ibox">
+                            <div class="ibox-content" style="">
+
+                                <div class="row">
+                                    <a href="article.html" class="btn-link">
+                                        <h2>
+                                            想知道宁泽涛每天游多少圈？送他 Misfit 最新款 Speedo Shine
+                                        </h2>
+                                    </a>
+                                    <img alt="image" class=" m-t-xs img-responsive" src="__STORAGE__/{$item.img}">
+                                    <div class="small m-b-xs">
+                                        <strong>高 晨</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 3 小时前</span>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <strong>标签：</strong>
+                                        <button class="btn btn-white btn-xs" type="button">{$item.classification.name}</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="small text-right">
+                                            <i class="fa fa-comments-o"> </i>热度：
+                                            <i class="fa fa-eye"> </i> 144 浏览
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/volist}
+                    {$page|raw}
+
+                </div>
+
+            </div>
+            <!-- end of page content -->
+
+            <!-- start of sidebar -->
+
+            <!-- end of sidebar -->
+        </div>
+    </div>
+</div>

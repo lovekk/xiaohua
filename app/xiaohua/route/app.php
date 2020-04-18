@@ -31,8 +31,9 @@ Route::group(function(){
     Route::get('user_list', 'User/index')->name('user_list');  //用户列表
     Route::get('user_add', 'User/userAdd')->name('user_add');  //用户新增视图
     Route::post('add_user', 'User/addUser')->name('add_user');  //用户新增方法
-    Route::get('user_detail', 'User/userDetail')->name('user_detail');  //用户详情
-    Route::get('user_log', 'User/userLog')->name('user_log');  //用户登录日志
+    Route::get('user_detail/:id', 'User/userDetail')->name('user_detail');  //用户详情
+    Route::get('user_log', 'User/userLog')->name('user_log');  //用户日志
+    Route::post('change_user', 'User/changeUser')->name('change_user');  //用户IT币
     //课程
     Route::get('course_list', 'Course/course')->name('course_list');  //列表
     Route::get('course_add', 'Course/courseAdd')->name('course_add');  //新增视图
@@ -40,6 +41,7 @@ Route::group(function(){
     Route::get('course_detail', 'Course/courseDetail')->name('course_detail');  //详情视图
     Route::get('del_course', 'Course/delCourse')->name('del_course');  //删除方法
     Route::get('course_up', 'Course/courseUp')->name('course_up');  //用户提交
+    Route::get('download', 'Course/download')->name('download');  //用户下载记录
     //课程分类
     Route::get('classification', 'Course/classification')->name('classification');  //列表
     Route::get('classification_add', 'Course/classificationAdd')->name('classification_add');  //新增视图
@@ -49,16 +51,12 @@ Route::group(function(){
     Route::post('del_classification', 'Course/delClassification')->name('del_classification');  //删除方法
     //课程评论
     Route::get('comment_list', 'Course/comment')->name('comment_list');  //评论列表
-    Route::get('del_comment', 'Course/delComment')->name('del_comment');  //评论删除方法
+    Route::post('del_comment', 'Course/delComment')->name('del_comment');  //评论删除方法
+    Route::get('link_lose', 'Course/linkLose')->name('link_lose');                      //链接失效反馈页面
+    Route::get('link_ask', 'Course/linkAsk')->name('link_ask');                         //求助资源页面
+    Route::get('link_share', 'Course/linkShare')->name('link_share');                   //分享课程页面
+    Route::post('link_submit', 'Course/linkSubmit')->name('link_submit');                 //提交动作
     //订单
-    //统计
-    //设置
-    //关于我们
-    Route::get('question', 'Question/index')->name('question');;  //问题列表
-    Route::get('question_add', 'Question/questionAdd')->name('question_add');;  //新增问题视图
-    Route::post('add_question', 'Question/addQuestion')->name('del_comment');;  //新增问题方法
-    Route::get('question_update/:id', 'Question/questionUpdate')->name('del_comment');;  //修改问题视图
-    Route::post('update_question', 'Question/updateQuestion')->name('del_comment');;  //修改问题方法
 
 })->middleware(\app\xiaohua\middleware\AdminLogin::class);
 

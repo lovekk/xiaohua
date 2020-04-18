@@ -14,6 +14,8 @@
 
     <link href="__ADMIN__/css/animate.css" rel="stylesheet">
     <link href="__ADMIN__/css/style.css?v=4.1.0" rel="stylesheet">
+    <!--弹窗-->
+    <link href="__ADMIN__/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
 
 </head>
 
@@ -31,9 +33,9 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>ID/用户名</th>
+                                    <th>用户名</th>
                                     <th>评论内容</th>
-                                    <th>课程ID/课程名</th>
+                                    <th>资源ID/标题</th>
                                     <th>创建时间</th>
                                     <th>操作</th>
                                 </tr>
@@ -42,17 +44,16 @@
                             {volist name='list' id='item'}
                                 <tr class="gradeA">
                                     <td>{$item.id}</td>
-                                    <td>
-                                        <span class="label label-success">{$item.user_id}</span>
-                                        /{$item.user.username}
-                                    </td>
+                                    <td>{$item.user.username}</td>
                                     <td>{$item.content}</td>
                                     <td class="center">
                                         <span class="label label-success">{$item.course_id}</span>
                                         /{$item.course.title}
                                     </td>
                                     <td class="center">{$item.create_time}</td>
-                                    <td class="center">修改|删除</td>
+                                    <td class="center">
+                                        <button class="btn btn-default btn-sm" onclick="del({$item.id});">删除</button>
+                                    </td>
                                 </tr>
                             {/volist}
                             </tbody>
@@ -62,16 +63,54 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-    <!-- 全局js -->
     <script src="__ADMIN__/js/jquery.min.js?v=2.1.4"></script>
-    <script src="__ADMIN__/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="__ADMIN__/js/content.js?v=1.0.0'"></script>
+    <script src="__H__/js/plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="__LAYER__/layer.js"></script>
+    <script src="__JS__/jquery.form.js"></script>
 
-    <!-- 自定义js -->
-    <script src="__ADMIN__/js/content.js?v=1.0.0"></script>
 
+    <script>
+        //删除数据
+        function del($id) {
+            //alert($id + $url);
+            swal({
+                title: "您确定要删除这条编号为"+ $id +"数据吗",
+                text: "删除后将无法恢复，请谨慎操作！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "删除",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    async : false,    //表示请求是否异步处理
+                    type : "post",    //请求类型
+                    url : 'del_comment',//请求的 URL地址
+                    dataType : "json",//返回的数据类型
+                    data : {
+                        'id' : $id
+                    },
+                    success: function (data) {
+                        //console.log(data.code);  //在控制台打印服务器端返回的数据
+                        if(data.code === 200){
+                            swal("删除成功！", "您已经删除了这条信息。", "success");
+                            setTimeout(function(){
+                                window.location.reload();
+                            },1000);
+                        }else{
+                            swal("未能删除！", "数据不存在。", "success");
+                        }
+                    },
+                    error:function (data) {
+                        //console.log(222 + data.result);
+                    }
+                });
+            });
+        }
+    </script>
 
 </body>
 

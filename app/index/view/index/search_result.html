@@ -41,22 +41,12 @@
                             </form>
                         </div>
                         <div class="hr-line-dashed"></div>
-                        <div class="search-result">
-                            <h3><a href="search_results.html#">定制后台的主题目录(Theme)</a></h3>
-                            <a href="search_results.html#" class="search-link">koda.iteye.com/blog/10...</a>
-                            <p>
-                                不像前台Theme目录的改变可以通过后台界面配置,后台的主题目录要自己修改相应的配置文件。 Theme目录的配置再Adminhtml模块,打开后台的配置文件 $MAGENO_DIR\app\code...
-                            </p>
-                        </div>
-                        <div class="hr-line-dashed"></div>
 
                         {volist name='search_result' id='item'}
                         <div class="search-result">
-                            <h3><a href="{:url('course_detail', ['id'=>$item.id])}">{$item.title}</a></h3>
-                            <a href="search_results.html#" class="search-link">koda.iteye.com/blog/10...</a>
-                            <p>
-                                不像前台Theme目录的改变可以通过后台界面配置,后台的主题目录要自己修改相应的配置文件。 Theme目录的配置再Adminhtml模块,打开后台的配置文件 $MAGENO_DIR\app\code...
-                            </p>
+                            <h3><a href="{:url('course_detail', ['id'=>$item.id])}" target="_blank">{$item.title}</a></h3>
+                            <span class="search-link">【{$item.des}】&nbsp; 最后浏览于：{$item.update_time}</span>
+                            <p> </p>
                         </div>
                         <div class="hr-line-dashed"></div>
                         {/volist}

@@ -31,11 +31,13 @@
                 <div class="form-group">
                     <input type="password" name="password" class="form-control" placeholder="密码" required="">
                 </div>
+
                 <div class="form-group">
                     <input type="text" class="form-control" name="captcha" placeholder="验证码" required="">
                 </div>
                 <div style="margin-top: 15px;margin-bottom: 15px;">{:captcha_img()}</div>
                 <div style="color: #aa0000" id="fail" class="fail"></div>
+
                 <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
                 <p class="text-muted text-center">
                     <a href="{:url('forget')}"><small>忘记密码了？</small></a> | <a href="{:url('register')}">注册一个新账号</a>
@@ -57,13 +59,7 @@
                 $("#fail").text(data.msg);
             }else if(data.code == 200){
                 $("#fail").text('');
-                sessionStorage.setItem('user_name',data.user_name);
-                sessionStorage.setItem('user_id',data.user_id);
                 window.location.href="/";
-//                    setTimeout(function(){
-//                        //window.location.reload();
-//                        window.location.href="/xiaohua/index";
-//                    },1000);
             }
         });
     });

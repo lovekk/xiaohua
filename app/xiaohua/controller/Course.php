@@ -3,6 +3,7 @@ namespace app\xiaohua\controller;
 
 use app\BaseController;
 
+use app\xiaohua\model\CourseSubmit;
 use think\facade\Request;
 use think\facade\View;
 use think\facade\Db;
@@ -11,6 +12,8 @@ use think\facade\Filesystem;
 use app\xiaohua\model\Course as CourseModel;
 use app\xiaohua\model\Comment as CommentModel;
 use app\xiaohua\model\Classification as ClassificationModel;
+use app\xiaohua\model\Download as DownloadModel;
+use app\xiaohua\model\CourseSubmit as CourseSubmitModel;
 
 class Course extends BaseController
 {
@@ -31,7 +34,34 @@ class Course extends BaseController
         //如果要对关联模型进行约束，可以使用闭包的方式。
         $list = CourseModel::with(['classification'=> function($query) {
             $query->field('id,name');
-        }])->order('id','desc')->paginate(20);
+        }])->order('id','desc')->paginate(30);
+
+        //搜索数据
+        $flag = Request::param('flag');
+        if ($flag){
+            $cond = [];
+            $type = Request::param('type');
+            $down_num_order = Request::param('down_num');
+            $keyword = Request::param('keyword');
+            if (!empty($type)) {
+                array_push($cond, ["type", "=", intval($type)]);
+            }
+            if (!empty($keyword)) {
+                array_push($cond, ["title",'like', '%'.$keyword.'%']);
+            }
+            if (!empty($down_num_order)) {
+                $list = CourseModel::where($cond)->order("real_down_num",$down_num_order)->paginate([
+                    'list_rows'=> 20,
+                    'query' => request()->param(),
+                ]);
+            }else{
+                $list = CourseModel::where($cond)->paginate([
+                    'list_rows'=> 20,
+                    'query' => request()->param(),
+                ]);
+            }
+        }
+
         // 获取分页显示
         $page = $list->render();
         return view('', ['list' => $list, 'page' => $page]);
@@ -56,7 +86,6 @@ class Course extends BaseController
      */
     public function addCourse()
     {
-
         $code = 200;
         $name = Request::param('name');
         $type = Request::param('type');
@@ -65,6 +94,7 @@ class Course extends BaseController
         $content = Request::param('content');
         $baiduyun = Request::param('baiduyun');
         $rar_password = Request::param('rar_password');
+        $price = Request::param('price');
         $view_num = Request::param('view_num');
         $down_num = Request::param('down_num');
         $comment_num = Request::param('comment_num');
@@ -106,6 +136,7 @@ class Course extends BaseController
                 'img' => $save_name,
                 'baiduyun' => $baiduyun,
                 'rar_password' => $rar_password,
+                'price' => $price,
                 'view_num' => $view_num,
                 'down_num' => $down_num,
                 'comment_num' => $comment_num,
@@ -121,19 +152,20 @@ class Course extends BaseController
                 'content' => $content,
                 'baiduyun' => $baiduyun,
                 'rar_password' => $rar_password,
+                'price' => $price,
                 'view_num' => $view_num,
                 'down_num' => $down_num,
                 'comment_num' => $comment_num,
             ];
         }
-        ClassificationModel::update([
-            'course_num' => Db::raw('course_num+1')
-        ], ['id' => $classification_id]);
-
 
         $data = CourseModel::create($created);
         $code = $data ? 200:404;
         $msg = ['code' => $code, 'msg' => '添加成功！'];
+
+        ClassificationModel::update([
+            'course_num' => Db::raw('course_num+1')
+        ], ['id' => $classification_id]);
 
         return json($msg);
     }
@@ -148,7 +180,7 @@ class Course extends BaseController
     {
         // 查询状态为1的用户数据 并且每页显示10条数据
         //$list = Db::name('classification')->order('id', 'desc')->paginate(5);
-        $list = ClassificationModel::paginate(10);
+        $list = ClassificationModel::paginate(20);
         // 获取分页显示
         $page = $list->render();
 
@@ -199,10 +231,10 @@ class Course extends BaseController
                 'download_num' => $download_num,
             ];
         }
-
-
         $data = ClassificationModel::create($created);
         $code = $data ? 200:404;
+
+
         $msg = ['code' => $code, 'msg' => '添加成功！'];
 
         return json($msg);
@@ -310,11 +342,27 @@ class Course extends BaseController
             [
                 'user'=> function($query) {$query->field('id,username');},
                 'course'=> function($query) {$query->field('id,title');
-        }])->order('id','desc')->paginate(2);
+        }])->order('id','desc')->paginate(30);
         // 获取分页显示
         $page = $list->render();
 
         return view('', ['list' => $list, 'page' => $page]);
+    }
+
+
+    /**
+     * 删除评价
+     */
+    public function delComment()
+    {
+        //获取ID
+        $id = Request::param('id');
+        //软删除
+        $data = CommentModel::destroy($id);
+        $code = $data ? 200:404;
+        $msg = ['code' => $code, 'msg' => '删除成功！'];
+
+        return json($msg);
     }
 
 
@@ -326,5 +374,76 @@ class Course extends BaseController
     public function courseUp()
     {
         return View::fetch();
+    }
+
+
+
+    //====================================课程下载====================================
+    /**
+     * 课程下载列表
+*/
+    public function download()
+    {
+        $list = DownloadModel::paginate(50);
+        // 获取分页显示
+        $page = $list->render();
+        return view('', ['list' => $list, 'page' => $page]);
+    }
+
+
+
+    //链接失效反馈页面
+    public function linkLose(){
+        $data = CourseSubmitModel::where('type',1)->order('id','desc')->paginate(20);
+        $page = $data->render();
+
+        View::assign('data',$data);
+        View::assign('page',$page);
+
+        return View::fetch();
+    }
+
+    //资源求助
+    public function linkAsk(){
+        $data = CourseSubmitModel::where('type',2)->order('id','desc')->paginate(20);
+        $page = $data->render();
+
+        View::assign('data',$data);
+        View::assign('page',$page);
+
+        return View::fetch();
+    }
+
+    //链接分享
+    public function linkShare(){
+        $data = CourseSubmitModel::where('type',3)->order('id','desc')->paginate(20);
+        $page = $data->render();
+
+        View::assign('data',$data);
+        View::assign('page',$page);
+
+        return View::fetch();
+    }
+
+    //确认申购、反馈修复
+    function linkSubmit()
+    {
+        $msg = ['code' => 100, 'msg' => '初始化！'];
+        //先判断是否有用户名
+        $id = Request::param('id');
+
+        if (!empty($id)){
+            $data = CourseSubmitModel::find($id);
+            $data->is_up = 2;
+            $save = $data->save();
+
+            //返回成功信息
+            $msg = ['code' => 200, 'data' => $save, 'msg' => '确认成功！'];
+            return json($msg);
+
+        }else{
+            $msg = ['code' => 100, 'msg' => '信息不完整！'];
+            return json($msg);
+        }
     }
 }

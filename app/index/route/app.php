@@ -6,10 +6,14 @@ use think\facade\Route;
 //首页
 Route::get('/', 'Index/index');
 //课程页
-Route::get('course', 'Index/course')->name('course');                           //课程页面
-Route::get('course_list/:id', 'Index/courseList')->name('course_list');         //课程列表
-Route::get('course_detail/:id', 'Index/courseDetail')->name('course_detail');   //课程详情
-Route::post('down_course', 'Api/downCourse')->name('down_course');              //下载课程
+Route::get('course', 'Index/course')->name('course');                               //课程页面
+Route::get('course_list/:id', 'Index/courseList')->name('course_list');             //课程列表
+Route::get('course_detail/:id', 'Index/courseDetail')->name('course_detail');       //课程详情
+Route::post('down_course', 'Api/downCourse')->name('down_course');                  //下载课程
+Route::get('link_lose', 'Index/linkLose')->name('link_lose');                      //链接失效反馈页面
+Route::get('link_ask', 'Index/linkAsk')->name('link_ask');                         //求助资源页面
+Route::get('link_share', 'Index/linkShare')->name('link_share');                   //分享课程页面
+Route::post('link_submit', 'Api/linkSubmit')->name('link_submit');                 //提交动作
 //源码页
 Route::get('code', 'Index/code')->name('code');           //源码页面 列表
 //评论
@@ -20,7 +24,6 @@ Route::get('vip', 'Index/vip')->name('vip');              //会员页面
 Route::get('sign', 'Index/sign')->name('sign');           //签到页页面
 Route::post('to_sign', 'Api/toSign')->name('to_sign');    //签到页签到逻辑
 //个人主页
-//Route::get('my/:id', 'Index/my')->name('my');                             //个人主页页面
 Route::get('my', 'Index/my')->name('my');                 //个人主页页面
 //关于我们
 Route::get('about', 'Index/about')->name('about');        //关于我们页面

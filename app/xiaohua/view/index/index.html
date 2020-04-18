@@ -36,95 +36,38 @@
                         <div class="logo-element">Code
                         </div>
                     </li>
-
-
-                    <!--侧边栏-->
-                    <!--<li>-->
-                        <!--<a class="J_menuItem" href="{:url('index')}">-->
-                            <!--<i class="fa fa-home"></i>-->
-                            <!--<span class="nav-label">首页</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
                     <li>
-                        <a href="#"><i class="fa fa-flask"></i> <span class="nav-label">管理员</span><span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="{:url('admin_list')}">管理员列表</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="{:url('admin_log')}">登录日志</a>
-                            </li>
-                        </ul>
+                        <a class="J_menuItem" href="{:url('user_list')}"><i class="fa fa-user"></i> <span class="nav-label">用户列表</span></a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-user"></i> <span class="nav-label">用户</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="{:url('user_list')}">用户列表</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="{:url('user_log')}">用户活动记录</a>
-                            </li>
-                        </ul>
+                        <a class="J_menuItem" href="{:url('user_log')}"><i class="fa fa-cutlery"></i> <span class="nav-label">用户日志</span></a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="{:url('course_list')}"><i class="fa fa-magic"></i> <span class="nav-label">课程列表</span></a>
+                    </li>
+                    <li>
+                        <a class="J_menuItem" href="{:url('course_list')}"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">订单列表</span></a>
                     </li>
 
                     <li>
                         <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">课程</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="{:url('course_list')}">课程列表</a>
-                            </li>
-                            <li><a class="J_menuItem" href="{:url('comment_list')}">评论</a>
-                            </li>
-                            <li><a class="J_menuItem" href="{:url('classification')}">课程分类</a>
-                            </li>
-                            <li><a class="J_menuItem" href="{:url('course_up')}">用户提交</a>
-                            </li>
-                            <!--<li>-->
-                                <!--<a href="#">文件上传 <span class="fa arrow"></span></a>-->
-                                <!--<ul class="nav nav-third-level">-->
-                                    <!--<li><a class="J_menuItem" href="form_webuploader.html">百度WebUploader</a>-->
-                                    <!--</li>-->
-                                    <!--<li><a class="J_menuItem" href="form_file_upload.html">DropzoneJS</a>-->
-                                    <!--</li>-->
-                                <!--</ul>-->
-                            <!--</li>-->
-                        </ul>
-                    </li>
-
-
-                    <li>
-                        <a href="#"><i class="fa fa-magic"></i> <span class="nav-label">订单</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="{:url('admin_list')}">订单列表</a>
-                            </li>
-                            <li><a class="J_menuItem" href="{:url('admin_list')}">会员记录</a>
-                            </li>
+                            <li><a class="J_menuItem" href="{:url('classification')}">课程分类</a></li>
+                            <li><a class="J_menuItem" href="{:url('download')}">课程下载记录</a>
+                            <li><a class="J_menuItem" href="{:url('comment_list')}">课程评论</a></li>
+                            <li><a class="J_menuItem" href="{:url('link_lose')}">链接失效反馈</a></li>
+                            <li><a class="J_menuItem" href="{:url('link_ask')}">资源申购</a></li>
+                            <li><a class="J_menuItem" href="{:url('link_share')}">资源分享提交</a></li>
                         </ul>
                     </li>
 
                     <li>
-                        <a href="#">
-                            <i class="fa fa fa-bar-chart-o"></i>
-                            <span class="nav-label">数据统计</span>
-                            <span class="fa arrow"></span>
-                        </a>
+                        <a href="#"><i class="fa fa-home"></i> <span class="nav-label">本站</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="{:url('admin_list')}">会员人数</a>
-                            </li>
-                            <li>
-                                <a class="J_menuItem" href="{:url('admin_list')}">充钱统计</a>
-                            </li>
+                            <li><a class="J_menuItem" href="{:url('admin_list')}">管理员列表</a></li>
+                            <li><a class="J_menuItem" href="{:url('admin_log')}">管理员日志</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">本站</span><span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="{:url('question')}">关于我们</a>
-                            </li>
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
         </nav>
@@ -141,13 +84,6 @@
                             </div>
                         </form>
                     </div>
-                    <!--<ul class="nav navbar-top-links navbar-right">-->
-                        <!--<li class="dropdown hidden-xs">-->
-                            <!--<a class="right-sidebar-toggle" aria-expanded="false">-->
-                                <!--<i class="fa fa-tasks"></i> 主题-->
-                            <!--</a>-->
-                        <!--</li>-->
-                    <!--</ul>-->
                 </nav>
             </div>
             <div class="row content-tabs">

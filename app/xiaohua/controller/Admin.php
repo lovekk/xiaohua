@@ -77,7 +77,7 @@ class Admin extends BaseController
      */
     public function adminLog()
     {
-        $list = AdminLogModel::order('id','desc')->paginate(10);
+        $list = AdminLogModel::order('id','desc')->paginate(20);
         // 获取分页显示
         $page = $list->render();
 

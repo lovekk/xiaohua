@@ -63,8 +63,10 @@
                         {volist name='hello' id='item'}
                         <section class="span4" style="margin: 0">
                             <h4 class="" >
-                                <img src="__STORAGE__/{$item.img}" style="width: 64px">
-                                <a href="#" style="color: #375742">【{$item.name}】</a>
+                                <a href="{:url('course_list', ['id'=>$item.id])}">
+                                    <img src="__STORAGE__/{$item.img}" style="width: 64px">
+                                </a>
+                                <a href="{:url('course_list', ['id'=>$item.id])}" style="color: #375742">【{$item.name}】</a>
                             </h4>
                             <div class="category-description">
                                 <p>资源:{$item.course_num} 下载次数:{$item.download_num}</p>
@@ -86,8 +88,10 @@
                         {volist name='ai' id='item'}
                         <section class="span4" style="margin: 0">
                             <h4 class="" >
-                                <img src="__STORAGE__/{$item.img}" style="width: 64px">
-                                <a href="#" style="color: #375742">【{$item.name}】</a>
+                                <<a href="{:url('course_list', ['id'=>$item.id])}">
+                                    <img src="__STORAGE__/{$item.img}" style="width: 64px">
+                                </a>
+                                <a href="{:url('course_list', ['id'=>$item.id])}" style="color: #375742">【{$item.name}】</a>
                             </h4>
                             <div class="category-description">
                                 <p>资源:{$item.course_num} 下载次数:{$item.download_num}</p>
@@ -109,8 +113,10 @@
                         {volist name='media' id='item'}
                         <section class="span4" style="margin: 0">
                             <h4 class="" >
-                                <img src="__STORAGE__/{$item.img}" style="width: 64px">
-                                <a href="#" style="color: #375742">【{$item.name}】</a>
+                                <a href="{:url('course_list', ['id'=>$item.id])}">
+                                    <img src="__STORAGE__/{$item.img}" style="width: 64px">
+                                </a>
+                                <a href="{:url('course_list', ['id'=>$item.id])}" style="color: #375742">【{$item.name}】</a>
                             </h4>
                             <div class="category-description">
                                 <p>资源:{$item.course_num} 下载次数:{$item.download_num}</p>

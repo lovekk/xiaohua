@@ -39,12 +39,20 @@
                         <option value="2">您的姓名：</option>
                         <option value="3">您所在城市：</option>
                         <option value="4">您的手机号：</option>
+                        <option value="5">您的偶像：</option>
                     </select>
                 </div>
                 <div class="form-group text-left"> &nbsp;&nbsp;&nbsp;&nbsp;请记住答案 用于密码找回呦~</div>
                 <div class="form-group">
-                    <input type="password" class="form-control" name="answer" id="answer" placeholder="答案" required="">
+                    <input type="text" class="form-control" name="answer" id="answer" placeholder="答案" required="">
                 </div>
+
+                <div class="form-group">
+                    <input type="text" class="form-control" name="captcha" id="captcha" placeholder="验证码" required="">
+                </div>
+                <div style="margin-top: 15px;margin-bottom: 15px;">{:captcha_img()}</div>
+                <div style="color: #aa0000" id="fail" class="fail"></div>
+
                 <!--<div class="form-group text-left">-->
                     <!--<div class="checkbox i-checks">-->
                         <!--<label class="no-padding">-->
@@ -101,7 +109,7 @@
                             $("#tip1").text('');
                             $("#tip2").text('用户名可用');
                             code = 200;
-                        }else{
+                        }else {
                             $("#tip2").text('');
                             $("#tip1").text('用户名重复，请更换用户名');
                             code = 400;
@@ -124,6 +132,7 @@
             var p1 = $("#password").val();
             var p2 = $("#password2").val();
             var answer = $("#answer").val();
+            var captcha = $("#captcha").val();
             if (p1 !== p2){
                 $("#tip3").text('两次密码不一样');
                 return false;
@@ -146,7 +155,8 @@
                         'username' : $("#username").val(),
                         'password' : p1,
                         'question' : $("#question").val(),
-                        'answer' : answer
+                        'answer' : answer,
+                        'captcha' : captcha
                     },
                     success: function (data) {
                         //console.log(data.code);  //在控制台打印服务器端返回的数据
@@ -155,7 +165,9 @@
                             setTimeout(function(){
                                 window.history.go(-1);
                             },1000);
-                        }else{
+                        }else if(data.code === 300){
+                            $("#fail").text(data.msg);
+                        }else {
                             swal("注册失败！", "请重新注册。", "success");
                         }
                     },

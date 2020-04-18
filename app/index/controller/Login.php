@@ -41,8 +41,9 @@ class Login extends BaseController
 
         //halt($is_name); //没有值返回null
         //halt(captcha_check($captcha)); //没有值返回null
+
         if(!captcha_check($captcha)){
-            $msg = ['code' => 400, 'msg' => '验证码错误！'];
+            $msg = ['code' => 400, 'msg' => '验证码错误，请点击验证码刷新~'];
             return json($msg);
         };
         if ($is_name == null){
@@ -66,7 +67,8 @@ class Login extends BaseController
                 'username' => $username,
                 'type'     => '登录',
                 'user_id'  => $user_id,
-                'user_ip'  => $ip
+                'user_ip'  => $ip,
+                'content'  => '《第一编程网》我来啦~'
             ]);
 
             //用户登录数据+1
@@ -102,17 +104,25 @@ class Login extends BaseController
         $answer   = Request::param('answer');
         $ip       = $_SERVER['REMOTE_ADDR'];
 
+        $captcha  = Request::param('captcha');
+        if(!captcha_check($captcha)){
+            $msg = ['code' => 300, 'msg' => '验证码错误，请点击验证码刷新~'];
+            return json($msg);
+        };
+
         if (empty($username) || empty($password) || empty($answer)){
-            $msg = ['code' => 100, 'msg' => '注册信息不完整！'];
+            $msg = ['code' => 400, 'msg' => '注册信息不完整！'];
             return json($msg);
         }
 
         if (!empty($username) && !empty($password) && !empty($answer)){
+            $num = rand(1,20);
             $created = [
                 'username' => $username,
                 'password' => $password,
                 'question' => $question,
-                'answer'   => $answer
+                'answer'   => $answer,
+                'head_img'   => 'img/20200202\\'.$num.'.jpg'
             ];
 
             $data = UserModel::create($created);
@@ -123,10 +133,11 @@ class Login extends BaseController
                 'username'  =>  $username,
                 'type'  =>  '注册',
                 'user_id' =>  $user_id,
-                'user_ip' =>  $ip
+                'user_ip' =>  $ip,
+                'content' =>  '成功注册《第一编程网》！'
             ]);
 
-            $msg = ['code' => 200, 'user_name' => $username, 'user_id' => $user_id];
+            $msg = ['code' => 200, 'msg'=>'成功注册《第一编程网》！','user_name' => $username, 'user_id' => $user_id];
             return json($msg);
         }
         //return redirect('index');
@@ -146,10 +157,10 @@ class Login extends BaseController
 //        $is_name = UserModel::where('username','=',$username)->select();
         $is_name = UserModel::where('username', $username)->find();
         if(!$is_name){
-            $msg = ['code' => 200, 'msg' => $is_name.$username.$is_name];
+            $msg = ['code' => 200, 'msg' => '用户名可以用'];
             return json($msg);
         }else{
-            $msg = ['code' => 400, 'msg' => '用户名重复了'.$username.$is_name];
+            $msg = ['code' => 600, 'msg' => '用户名重复了'];
             return json($msg);
         }
     }
@@ -171,6 +182,13 @@ class Login extends BaseController
         $username = Request::param('username');
         $question = Request::param('question');
         $answer = Request::param('answer');
+
+        $captcha  = Request::param('captcha');
+        if(!captcha_check($captcha)){
+            $msg = ['code' => 400, 'msg' => '验证码错误，请点击验证码刷新~'];
+            return json($msg);
+        };
+
         //模型使用find方法查询，如果数据不存在返回Null，否则返回当前模型的对象实例
         $is_name = UserModel::where('username', $username)->find();
         if($is_name){
