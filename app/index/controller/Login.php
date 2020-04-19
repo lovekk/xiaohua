@@ -63,7 +63,7 @@ class Login extends BaseController
             session('user_id', $user_id);
             //登录日志
             //记录类型1下载2签到3发布4评论5登录
-            $user = UserLogModel::create([
+            UserLogModel::create([
                 'username' => $username,
                 'type'     => '登录',
                 'user_id'  => $user_id,
@@ -72,9 +72,24 @@ class Login extends BaseController
             ]);
 
             //用户登录数据+1
-            UserModel::update([
-                'login_num' => Db::raw('login_num+1')
-            ], ['id' => $user_id]);
+//            UserModel::update([
+//                'login_num' => Db::raw('login_num+1')
+//            ], ['id' => $user_id]);
+
+            $userData = UserModel::find($user_id);
+            $login_num = $userData->login_num;   //登录数
+            $userData->login_num = $login_num +1;
+
+            $vip_type3 = $userData->vip_type;
+
+            if ($vip_type3 == 3){  //判断月费用户
+                $vip_end = $userData->vip_end;
+                $today = date("Y-m-d");
+                if (strtotime($today) > strtotime($vip_end)){
+                    $userData->vip_type = 2;
+                }
+            }
+            $userData->save();
 
             $msg = ['code' => 200, 'user_name' => $username, 'user_id' => $user_id];
             return json($msg);

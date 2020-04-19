@@ -2,13 +2,13 @@
     <h3 class="title">类别</h3>
     <div class="tagcloud">
         {volist name='hello' id='item'}
-        <a href="#" class="btn btn-primary">{$item.name}</a>
+        <a href="{:url('course_list', ['id'=>$item.id])}" class="btn btn-primary">{$item.name}</a>
         {/volist}
         {volist name='ai' id='item'}
-        <a href="#" class="btn btn-danger">{$item.name}</a>
+        <a href="{:url('course_list', ['id'=>$item.id])}" class="btn btn-danger">{$item.name}</a>
         {/volist}
         {volist name='media' id='item'}
-        <a href="#" class="btn btn-success">{$item.name}</a>
+        <a href="{:url('course_list', ['id'=>$item.id])}" class="btn btn-success">{$item.name}</a>
         {/volist}
     </div>
 </section>

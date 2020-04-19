@@ -25,7 +25,7 @@
                 </span>
                 <br><br>
                 <p class="success" id="baidu">
-                    <span>点击下载按钮，可获得资源的百度网盘链接！本课程需要 【{$detail.price}】 IT币。</span><br>
+                    <span>点击下载按钮，可获得资源的百度网盘链接！本课程需要 <strong>【{$detail.price}】 </strong> IT币。</span><br>
                     <span id="link" style="font-weight: 500;color: black"></span>
                 </p>
                 <div class="like-btn1" >
@@ -145,6 +145,7 @@
             <aside class="span4 page-sidebar">
                 <!--联系支持-->
                 {include file="common/support" /}
+                {include file="common/link" /}
                 <!--课程分类标签-->
                 {include file="common/tags" /}
             </aside>
@@ -178,10 +179,11 @@
                     //console.log(data.code);  //在控制台打印服务器端返回的数据
                     if(data.code === 200){
                         $("#link").html(
+                            "《"+data.data.title+"》<br>"+
                             data.data.baiduyun
                             + "<br>解压密码："
                             + data.data.rar_password
-                            +"<br>请复制保存，可在【用户名】-【我的信息】中查看已经下载的资源。");
+                            +"<br>请一定复制保存！刷新后则隐藏链接，可在【用户名】-【我的信息】中查看历史记录。");
                     }else{
                         swal({
                             title: "下载失败！",

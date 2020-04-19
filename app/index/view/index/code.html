@@ -30,16 +30,14 @@
                     {volist name='list' id='item'}
                     <section class="span3" style="padding-bottom: 20px">
                         <div style="border: 1px solid #f0f4f7;padding-bottom: 10px">
-
-
-                        <img alt="image" class=" m-t-xs img-responsive" src="__STORAGE__/{$item.img}">
-                        <h3 style="height: 120px"><strong>{$item.title}</strong></h3>
-                        <strong>标签：</strong>
-                        <button class="btn btn-white btn-xs" type="button">{$item.classification.name}</button>
-                        <div class="small text-right" style="padding-top: 10px">
-                            <i class="fa fa-comments-o"> </i> 热度：{$item.down_num}&nbsp;&nbsp;
-                            <i class="fa fa-eye"> </i> 浏览：{$item.view_num}
-                        </div>
+                            <img alt="image" class=" m-t-xs img-responsive" src="__STORAGE__/{$item.img}">
+                            <h3 style="height: 120px"><a href="{:url('course_detail', ['id'=>$item.id])}" target="_blank">{$item.title}</a></h3>
+                            <strong>标签：</strong>
+                            <button class="btn btn-white btn-xs" type="button">{$item.classification.name}</button>
+                            <div class="small text-right" style="padding-top: 10px">
+                                <i class="fa fa-comments-o"> </i> 热度：{$item.down_num}&nbsp;&nbsp;
+                                <i class="fa fa-eye"> </i> 浏览：{$item.view_num}
+                            </div>
                         </div>
 
                     </section>

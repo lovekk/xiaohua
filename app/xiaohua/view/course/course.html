@@ -110,7 +110,9 @@
                                         <span class="label label-warning">{$item.comment_num}</span>
                                     </td>
                                     <td class="center">{$item.create_time}</td>
-                                    <td class="center">详情|修改|删除</td>
+                                    <td class="center">
+                                        <a class="btn btn-success btn-sm" href="{:url('course_update', ['id'=>$item.id]) }">修改</a>
+                                    </td>
                                 </tr>
                             {/volist}
                             </tbody>

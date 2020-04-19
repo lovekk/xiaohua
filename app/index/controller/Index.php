@@ -80,7 +80,7 @@ class Index extends BaseController
     {
         //获取分类课程java，C，php
         $id = Request::param('id');
-        $data = CourseModel::where('classification_id',$id)->paginate(10);
+        $data = CourseModel::where('classification_id',$id)->order('id','desc')->paginate(10);
         $page = $data->render();
 
         View::assign('data',$data);
@@ -107,7 +107,7 @@ class Index extends BaseController
 
         //浏览+1
         CourseModel::update([
-            'view_num'  => Db::raw('view_num+3')
+            'view_num'  => Db::raw('view_num+1')
         ], ['id' => $id]);
 
         //下载记录前10条

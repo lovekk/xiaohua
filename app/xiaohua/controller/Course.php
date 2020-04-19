@@ -171,6 +171,100 @@ class Course extends BaseController
     }
 
 
+    /**
+     * 修改课程视图
+     */
+    public function courseUpdate()
+    {
+        //获取ID
+        $id = Request::param('id');
+        //查找数据
+        $data = CourseModel::find(intval($id));
+        //选择课程分类
+        $classification = ClassificationModel::select();
+        // 模板变量赋值
+        View::assign('classification',$classification);
+        View::assign('data',$data);
+        View::assign('id',$id);
+        return View::fetch();
+    }
+
+
+    /**
+     * 修改课程方法
+     */
+    public function updateCourse()
+    {
+
+        $code = 100;
+        $id = Request::param('id');
+        $type = Request::param('type');
+        $classification_id = Request::param('classification_id');
+        $title = Request::param('title');
+        $content = Request::param('content');
+        $baiduyun = Request::param('baiduyun');
+        $rar_password = Request::param('rar_password');
+        $price = Request::param('price');
+        $view_num = Request::param('view_num');
+        $down_num = Request::param('down_num');
+        $comment_num = Request::param('comment_num');
+
+        // 获取表单上传文件 例如上传了001.jpg
+        $file = request()->file('img');
+
+        $data = CourseModel::find(intval($id));
+        $data->title = $title;
+        $data->baiduyun = $baiduyun;
+        $data->rar_password = $rar_password;
+        $data->price = $price;
+        $data->view_num = $view_num;
+        $data->down_num = $down_num;
+        $data->comment_num = $comment_num;
+
+        if ($file){
+            // 上传到本地服务器
+            $save_name = Filesystem::disk('public')->putFile( 'img', $file);
+            $data->img = $save_name;
+        }
+        if ($type){
+            //1视频 2源码 3电子书 4软件 5图文
+            switch ($type)
+            {
+                case 1:
+                    $des = '视频';
+                    break;
+                case 2:
+                    $des = '源码';
+                    break;
+                case 3:
+                    $des = '电子书';
+                    break;
+                case 4:
+                    $des = '软件';
+                    break;
+                case 5:
+                    $des = '图文';
+                    break;
+                default:
+                    $des = '其他';
+            }
+            $data->type = $type;
+        }
+        if ($classification_id){
+            $data->classification_id = $classification_id;
+        }
+        if (!empty($content)){
+            $data->content = $content;
+        }
+        $data->save();
+
+        $code = $data ? 200:404;
+        $msg = ['code' => $code, 'msg' => '修改成功！'];
+
+        return json($msg);
+    }
+
+
 
     //====================================课程分类====================================
     /**
@@ -384,7 +478,7 @@ class Course extends BaseController
 */
     public function download()
     {
-        $list = DownloadModel::paginate(50);
+        $list = DownloadModel::order('id','desc')->paginate(50);
         // 获取分页显示
         $page = $list->render();
         return view('', ['list' => $list, 'page' => $page]);

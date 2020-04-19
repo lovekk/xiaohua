@@ -38,6 +38,8 @@ Route::group(function(){
     Route::get('course_list', 'Course/course')->name('course_list');  //列表
     Route::get('course_add', 'Course/courseAdd')->name('course_add');  //新增视图
     Route::post('add_course', 'Course/addCourse')->name('add_course');  //新增方法
+    Route::get('course_update/:id', 'Course/courseUpdate')->name('course_update');  //修改课程
+    Route::post('update_course', 'Course/updateCourse')->name('update_course');  //修改课程
     Route::get('course_detail', 'Course/courseDetail')->name('course_detail');  //详情视图
     Route::get('del_course', 'Course/delCourse')->name('del_course');  //删除方法
     Route::get('course_up', 'Course/courseUp')->name('course_up');  //用户提交
